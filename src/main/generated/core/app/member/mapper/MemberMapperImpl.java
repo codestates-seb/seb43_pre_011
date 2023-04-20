@@ -11,14 +11,14 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-04-17T23:17:08+0900",
+    date = "2023-04-20T08:51:52+0900",
     comments = "version: 1.5.1.Final, compiler: javac, environment: Java 11.0.18 (Azul Systems, Inc.)"
 )
 @Component
 public class MemberMapperImpl implements MemberMapper {
 
     @Override
-    public Member memberToMemberPostDto(MemberPostDto memberPostDto) {
+    public Member memberPostDtoToMember(MemberPostDto memberPostDto) {
         if ( memberPostDto == null ) {
             return null;
         }
@@ -34,7 +34,7 @@ public class MemberMapperImpl implements MemberMapper {
     }
 
     @Override
-    public Member memberToMemberPatchDto(MemberPatchDto memberPatchDto) {
+    public Member memberPatchDtoToMember(MemberPatchDto memberPatchDto) {
         if ( memberPatchDto == null ) {
             return null;
         }
