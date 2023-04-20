@@ -134,7 +134,7 @@ const snsList = [
   { Blog: "/" },
   { Facebook: "/" },
   { Twitter: "/" },
-  { LinkdIn: "/" },
+  { LinkedIn: "/" },
   { Instagram: "/" },
 ];
 

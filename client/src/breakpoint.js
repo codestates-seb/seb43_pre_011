@@ -4,5 +4,4 @@ const BREAKPOINT = {
   laptop: "1200px",
   desktop: "1800px",
 };
-
 export default BREAKPOINT;
