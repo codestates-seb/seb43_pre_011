@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class CommentMapperImpl implements CommentMapper {
 
     @Override
-    public Comment commentToCommentPostDto(CommentPostDto commentPostDto) {
+    public Comment commentPostDtoToComment(CommentPostDto commentPostDto) {
         if ( commentPostDto == null ) {
             return null;
         }
@@ -31,7 +31,7 @@ public class CommentMapperImpl implements CommentMapper {
     }
 
     @Override
-    public Comment commentToCommentPatchDto(CommentPatchDto commentPatchDto) {
+    public Comment commentPatchDtoToComment(CommentPatchDto commentPatchDto) {
         if ( commentPatchDto == null ) {
             return null;
         }

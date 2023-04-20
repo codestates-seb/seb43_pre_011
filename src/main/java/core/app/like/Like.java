@@ -1,14 +1,13 @@
 package core.app.like;
 
 import core.app.audit.Auditable;
-import core.app.member.entity.Member;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import core.app.question.entity.Question;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -22,13 +21,13 @@ public class Like extends Auditable {
     private int likeCount;
 
     @OneToOne
-    @JoinColumn(name = "MEMBER_ID")
-    private Member member;
+    @JoinColumn(name = "QUESTION_ID")
+    private Question question;
 
-    public void setMember(Member member){
-        this.member = member;
-        if(member.getLike() != this){
-            member.setLike(this);
+    public void setMember(Question question){
+        this.question = question;
+        if(question.getLike() != this){
+            question.setLike(this);
         }
     }
 }

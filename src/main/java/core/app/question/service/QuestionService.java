@@ -33,8 +33,8 @@ public class QuestionService {
                 .ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getBody())
                 .ifPresent(findQuestion::setBody);
-        Optional.of(question.getVoteId())
-                .ifPresent(findQuestion::setVoteId);//voteId? 투표수? 투표번호?
+        Optional.of(question.getLike())
+                .ifPresent(findQuestion::setLike);//like 좋아요
 
         return findQuestion;
     }

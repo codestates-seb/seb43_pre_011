@@ -28,7 +28,7 @@ public class CommentController {
     @PostMapping
     public ResponseEntity postComment(@Valid @RequestBody CommentPostDto commentPostDto){
 
-        Comment comment = mapper.commentToCommentPostDto(commentPostDto);
+        Comment comment = mapper.commentPostDtoToComment(commentPostDto);
 
         Comment response = commentService.createComment(comment);
 
@@ -41,7 +41,7 @@ public class CommentController {
 
         commentPatchDto.setCommentId(commentId);
 
-        Comment comment = mapper.commentToCommentPatchDto(commentPatchDto);
+        Comment comment = mapper.commentPatchDtoToComment(commentPatchDto);
 
         Comment response = commentService.updateComment(comment);
 

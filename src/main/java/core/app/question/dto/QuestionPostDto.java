@@ -1,8 +1,10 @@
 package core.app.question.dto;
 
 
+import core.app.validator.NotSpace;
 import lombok.*;
 
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -10,14 +12,14 @@ import java.time.LocalDateTime;
 @Data
 public class QuestionPostDto {
     private Long questionId;
-
+    @NotSpace
     private String title;
-
+    @NotSpace
     private String body;
 
     private Long memberId;
-
-    private Long voteId;
+    @Positive
+    private Long like;
 
     private LocalDateTime createdAt;
 }

@@ -2,6 +2,7 @@ package core.app.question.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import core.app.like.Like;
 import core.app.member.entity.Member;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -21,7 +22,6 @@ public class Question {
     private String title; //질문 제목
     private String body; //질문 본문
     private Long memberId; //질문자 번호
-    private Long voteId; //투표수? 투표번호?
     @LastModifiedDate
     private LocalDateTime modifiedAt; //수정 시간
     @CreatedDate
@@ -32,4 +32,14 @@ public class Question {
     @JsonBackReference
     private Member member;
     private String comment;
+
+    @OneToOne(mappedBy = "question", cascade = CascadeType.PERSIST)
+    private Like like;
+
+    public void setLike(Like like){
+        this.like = like;
+        if(like.getQuestion() != this){
+            like.setQuestion(this);
+        }
+    }
 }

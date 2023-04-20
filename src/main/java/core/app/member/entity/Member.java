@@ -28,16 +28,6 @@ public class Member {
     @Column(nullable = false)
     private int grade;
 
-    @OneToOne(mappedBy = "member", cascade = CascadeType.PERSIST)
-    private Like like;
-
-    public void setLike(Like like){
-        this.like = like;
-        if(like.getMember() != this){
-            like.setMember(this);
-        }
-    }
-
     public Member(Long memberId, String email, String password, String nickName, int grade) {
         this.memberId = memberId;
         this.email = email;
