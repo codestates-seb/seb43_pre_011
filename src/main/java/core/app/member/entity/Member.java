@@ -1,22 +1,42 @@
 package core.app.member.entity;
 
+import core.app.like.Like;
 import core.app.validator.NotSpace;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 public class Member {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
+
+    @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
     private String nickName;
+
+    @Column(nullable = false)
     private int grade;
+
+    @OneToOne(mappedBy = "member", cascade = CascadeType.PERSIST)
+    private Like like;
+
+    public void setLike(Like like){
+        this.like = like;
+        if(like.getMember() != this){
+            like.setMember(this);
+        }
+    }
 
     public Member(Long memberId, String email, String password, String nickName, int grade) {
         this.memberId = memberId;
