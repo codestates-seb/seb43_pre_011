@@ -25,11 +25,3 @@ export const BtnBlueFill = styled(BtnBlueLine)`
     color: hsl(0, 0%, 100%);
   }
 `;
-
-export const LinkBlue = styled.a`
-  color: var(--link);
-
-  &:hover {
-    color: var(--link-hover);
-  }
-`;
