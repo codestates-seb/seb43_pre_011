@@ -1,5 +1,6 @@
 // 전역 CSS 작성
 import { createGlobalStyle } from "styled-components";
+// eslint-disable-next-line import/no-named-as-default
 import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
