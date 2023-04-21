@@ -1,12 +1,10 @@
 package core.app.comment.dto;
 
 import core.app.validator.NotSpace;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
 public class CommentPostDto {
 
@@ -18,4 +16,10 @@ public class CommentPostDto {
 
     @NotSpace
     private Long boardId;
+
+    public CommentPostDto(String comment, Long memberId, Long boardId) {
+        this.comment = comment;
+        this.memberId = memberId;
+        this.boardId = boardId;
+    }
 }

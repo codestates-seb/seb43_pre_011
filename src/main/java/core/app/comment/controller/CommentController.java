@@ -6,15 +6,20 @@ import core.app.comment.dto.CommentPostDto;
 import core.app.comment.entity.Comment;
 import core.app.comment.mapper.CommentMapper;
 import core.app.comment.service.CommentService;
+import core.app.dto.SingleResponseDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
+@Validated
 @RestController
 @RequestMapping("/commits")
+@Slf4j
 public class CommentController {
 
     private final CommentService commentService;
@@ -30,9 +35,9 @@ public class CommentController {
 
         Comment comment = mapper.commentPostDtoToComment(commentPostDto);
 
-        Comment response = commentService.createComment(comment);
+        Comment createComment = commentService.createComment(comment);
 
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.commentToCommentResponseDto(createComment)), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{comment-id}")
@@ -45,7 +50,8 @@ public class CommentController {
 
         Comment response = commentService.updateComment(comment);
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
     @GetMapping("/{comment-id}")
