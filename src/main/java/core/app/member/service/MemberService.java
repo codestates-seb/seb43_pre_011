@@ -34,8 +34,6 @@ public class MemberService {
                 .ifPresent(mail -> findMember.setEmail(mail));
         Optional.ofNullable(member.getPassword())
                 .ifPresent(password -> findMember.setPassword(password));
-        Optional.ofNullable(member.getGrade())
-                .ifPresent(grade -> findMember.setGrade(grade));
 
         return memberRepository.save(findMember);
     }

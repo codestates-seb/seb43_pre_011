@@ -16,6 +16,5 @@ public class QuestionResponseDto {
     private String body;
     private Long memberId;
     private LocalDateTime modifiedAt;
-    private Long like;
     private LocalDateTime createdAt;
 }

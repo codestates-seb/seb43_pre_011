@@ -33,8 +33,6 @@ public class QuestionService {
                 .ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getBody())
                 .ifPresent(findQuestion::setBody);
-        Optional.of(question.getLike())
-                .ifPresent(findQuestion::setLike);//like 좋아요
 
         return findQuestion;
     }

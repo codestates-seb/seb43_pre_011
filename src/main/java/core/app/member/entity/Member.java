@@ -1,15 +1,19 @@
 package core.app.member.entity;
 
-import core.app.like.Like;
-import core.app.validator.NotSpace;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import core.app.question.entity.Question;
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Member {
 
     @Id
@@ -25,14 +29,9 @@ public class Member {
     @Column(nullable = false)
     private String nickName;
 
-    @Column(nullable = false)
-    private int grade;
+    @OneToMany(mappedBy = "member")
+    @JsonManagedReference
+    private List<Question> questions = new ArrayList<>();
 
-    public Member(Long memberId, String email, String password, String nickName, int grade) {
-        this.memberId = memberId;
-        this.email = email;
-        this.password = password;
-        this.nickName = nickName;
-        this.grade = grade;
-    }
+
 }
