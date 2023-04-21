@@ -1,21 +1,13 @@
 package core.app.board.dto;
 
-import core.app.validator.NotSpace;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
-@Data
-@NoArgsConstructor
+import javax.validation.constraints.NotBlank;
+
+@Getter
 public class BoardPostDto {
 
-    @NotSpace
+    @NotBlank
     private String title;
 
-    @NotSpace
-    private String body;
-
-    public BoardPostDto(String title, String body) {
-        this.title = title;
-        this.body = body;
-    }
 }

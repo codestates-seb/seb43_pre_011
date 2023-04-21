@@ -1,35 +1,39 @@
 package core.app.board.entity;
 
-import core.app.question.entity.Question;
+import core.app.audit.Auditable;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @Entity
-public class Board {
+public class Board extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardId;
 
-    @Column(nullable = false)
+    @Column(length = 50)
     private String title;
 
-    @Column(nullable = false)
-    private String body;
+    // 보드 상태
+    @Enumerated(value = EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private BoardStatus boardStatus = BoardStatus.BOARD_ACTIVE;
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.PERSIST)
-    private List<Question> question = new ArrayList<>();
+    public enum BoardStatus{
+        BOARD_ACTIVE("활성화"),
+        BOARD_NOT_ACTIVE("비활성화");
 
-    public Board(Long boardId, String title, String body) {
-        this.boardId = boardId;
-        this.title = title;
-        this.body = body;
+        @Getter
+        private String status;
+
+        BoardStatus(String status){
+            this.status = status;
+        }
     }
-
 }
