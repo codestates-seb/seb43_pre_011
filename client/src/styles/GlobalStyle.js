@@ -1,5 +1,6 @@
 // 전역 CSS 작성
 import { createGlobalStyle } from "styled-components";
+// eslint-disable-next-line import/no-named-as-default
 import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
@@ -8,7 +9,18 @@ ${reset}
 
 /* custom style */
 :root {
-	--link-blue:  hsl(206,100%,40%);
+	--white: #fff;
+	--black: #0c0d0e;
+	--gray: #525960;
+	--orange: #f48225;
+	--input-border: #babfc4;
+	--box-border: #d6d9dc;
+	--header-gray: #838c95;
+	--link:  #0074cc;
+	--link-hover:  #0a95ff;
+	--light-blue: #6bbbf7;
+	--bg-gray: #f8f9f9;
+	--hover-gray: #e3e6e8;
 }
 
 * {
@@ -20,13 +32,15 @@ html {
 }
 
 body {
-	font-size: 1.6rem;
+	font-size: 1.3rem;
+	color: var(--black)
 }
 
 a {
 	text-decoration: none;
 	color: inherit;
 }
+
 
 button {
 	border: 0;
