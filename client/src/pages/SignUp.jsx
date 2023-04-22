@@ -1,4 +1,3 @@
-// import styled from "styled-components";
 import { useState } from "react";
 import { BtnBlueFill } from "../styles/common.js";
 import { Input } from "../components/Input.jsx";
@@ -10,7 +9,6 @@ import { useEffect } from "react";
 import styled from "styled-components";
 
 const Background = styled.div`
-  /* position: relative; */
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -79,7 +77,6 @@ export const SignUp = () => {
   return (
     <Background>
       <div className="inputBg">
-        {/* <InputBox> */}
         <form>
           <Input>
             <div className="container">
@@ -160,7 +157,6 @@ export const SignUp = () => {
             <Button onClick={handleSubmit}> Sign up</Button>
           </Input>
         </form>
-        {/* </InputBox> */}
       </div>
     </Background>
   );

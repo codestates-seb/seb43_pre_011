@@ -7,5 +7,4 @@ const useInput = (initialDate) => {
   }, []);
   return [value, handler, setValue];
 };
-
 export default useInput;

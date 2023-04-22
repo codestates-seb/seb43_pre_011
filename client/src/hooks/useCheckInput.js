@@ -11,5 +11,4 @@ const useCheckInput = (input, regex) => {
   }, [input, regex]);
   return isError;
 };
-
 export default useCheckInput;
