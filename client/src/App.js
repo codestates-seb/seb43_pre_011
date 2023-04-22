@@ -1,6 +1,8 @@
 import Header from "./components/common/Header.jsx";
-import AllQuestions from "./pages/AllQuestions.jsx";
-import { Footer } from "./components/Footer.jsx";
+// import AllQuestions from "./pages/AllQuestions.jsx";
+// import Nav from "./components/nav.jsx";
+// import { Footer } from "./components/Footer.jsx";
+import { SignUp } from "./pages/SignUp.jsx";
 import GlobalStyle from "./styles/GlobalStyle.js";
 
 function App() {
@@ -10,13 +12,11 @@ function App() {
       <div className="App">
         <Header />
         <div className="wrapper">
-          {/* 임시 */}
-          <nav>네비이이이</nav>
-          <div className="container">
-            <AllQuestions />
-          </div>
+          {/* <Nav /> */}
+          <div className="container">{/* <AllQuestions /> */}</div>
+          <SignUp />
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </>
   );
