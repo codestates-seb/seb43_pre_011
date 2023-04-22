@@ -1,7 +1,7 @@
 package core.app.member.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import core.app.like.entity.Like;
+import core.app.vote.entity.Vote;
 import core.app.question.entity.Question;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -35,7 +35,7 @@ public class Member {
     private List<Question> questions = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
-    private List<Like> likes = new ArrayList<>();
+    private List<Vote> votes = new ArrayList<>();
 
 
 }

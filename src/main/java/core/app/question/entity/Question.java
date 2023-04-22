@@ -2,7 +2,7 @@ package core.app.question.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import core.app.like.entity.Like;
+import core.app.vote.entity.Vote;
 import core.app.member.entity.Member;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -34,6 +34,6 @@ public class Question {
     private String comment;
 
     @OneToMany(mappedBy = "question")
-    private List<Like> likes = new ArrayList<>();
+    private List<Vote> votes = new ArrayList<>();
 
 }
