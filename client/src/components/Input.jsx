@@ -19,7 +19,6 @@ export const Input = styled.div`
     padding: 0 2px 8px 2px;
     font-size: 15px;
     font-weight: 600;
-
     .svg-icon {
       position: relative;
       top: 5px;
