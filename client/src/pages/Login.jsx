@@ -2,12 +2,10 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { BtnBlueFill } from "../styles/common.js";
 import { Input } from "../components/Input.jsx";
-import { SignUpText } from "../components/SignUpText.jsx";
-import { SignUpApi } from "../utils/api";
+import { LoginApi } from "../utils/api";
 import useCheckInput from "../hooks/useCheckInput";
 import useInput from "../hooks/useInput";
 // import { useNavigate } from "react-router-dom";
-import BREAKPOINT from "../breakpoint.js";
 
 const Background = styled.div`
   display: flex;
@@ -18,26 +16,16 @@ const Background = styled.div`
   width: 100%;
   min-height: calc(100vh - 50px);
   background-color: #f1f2f3;
-  @media screen and (max-width: ${BREAKPOINT.mobile}) {
-    .side-content {
-      display: none;
-    }
-  }
-  @media screen and (min-width: ${BREAKPOINT.mobile}) {
-    .top-content {
-      display: none;
-    }
-  }
-  .top-content {
-    margin-bottom: 36px;
-    font-size: 21px;
-    text-align: center;
-  }
   .view-col {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    .title-sub {
+      display: flex;
+      justify-content: space-between;
+      padding-right: 20px;
+    }
     .text {
       display: flex;
       margin-bottom: 12px;
@@ -57,6 +45,7 @@ const Background = styled.div`
     }
   }
 `;
+
 const Button = styled(BtnBlueFill)`
   width: 268px;
   height: 38.0308px;
@@ -65,23 +54,14 @@ const Button = styled(BtnBlueFill)`
   font-weight: 700;
 `;
 
-export const SignUp = () => {
+export const Login = () => {
   // const navigate = useNavigate();
   const [preventSubmit, setPreventSubmit] = useState(true);
-  const [nickname, nicknameHandler] = useInput("");
-  const [nicknameError, setNicknameError] = useState(false);
   const [email, emailHandler] = useInput("");
   const [password, passwordHandler] = useInput("");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // nickname, email, password 유효성 검사 코드
-  useEffect(() => {
-    if (nickname === email) {
-      setNicknameError(true);
-    } else {
-      setNicknameError(false);
-    }
-  }, [nickname, email]);
+  // email, password 유효성 검사 코드
   const emailError = useCheckInput(
     email,
     /[a-zA-Z0-9._]+@[a-zA-Z0-9]+.[a-zA-Z0-9.]+/gm,
@@ -97,7 +77,7 @@ export const SignUp = () => {
       return "Email cannot be empty.";
     }
     if (emailError) {
-      return `${email} is not a valid email address.`;
+      return `The email is not a valid email address.`;
     }
     return "";
   };
@@ -118,58 +98,21 @@ export const SignUp = () => {
 
     if (preventSubmit) return;
     const form = {
-      nickname,
       email,
       password,
     };
-    const response = await SignUpApi(form);
+    const response = await LoginApi(form);
     if (response) {
-      // navigate("/users/login");
+      // navigate("/");
     }
   };
 
   return (
     <Background>
-      <div className="side-content">
-        <SignUpText />
-      </div>
       <div className="view-col">
-        <h1 className="top-content">
-          Create your Stack Overflow account. It’s free
-          <br /> and only takes a minute.
-        </h1>
         <form>
           <Input>
-            <div className="container">
-              <div className="title">
-                Display name
-                <input
-                  type="text"
-                  value={nickname}
-                  onChange={nicknameHandler}
-                  className={
-                    isSubmitted && nicknameError ? "input error" : "input"
-                  }
-                />
-                {isSubmitted && nicknameError ? (
-                  <>
-                    <svg
-                      aria-hidden="true"
-                      className="svg-icon"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 18 18"
-                    >
-                      <path d="M9 17c-4.36 0-8-3.64-8-8 0-4.36 3.64-8 8-8 4.36 0 8 3.64 8 8 0 4.36-3.64 8-8 8ZM8 4v6h2V4H8Zm0 8v2h2v-2H8Z"></path>
-                    </svg>
-                    <p className="error-message">
-                      Name and email address must be different. If you
-                      don&apos;t want to enter a name, just leave it blank.
-                    </p>
-                  </>
-                ) : null}
-              </div>
-            </div>
+            <div className="container"></div>
             <div className="container">
               <div className="title">
                 Email
@@ -199,7 +142,10 @@ export const SignUp = () => {
             </div>
             <div className="container">
               <div className="title">
-                Password
+                <div className="title-sub">
+                  Password
+                  <p className="sub-link">Forgot password?</p>
+                </div>
                 <input
                   type="password"
                   value={password}
@@ -220,10 +166,6 @@ export const SignUp = () => {
                     <p className="error-message">Password cannot be empty.</p>
                   </>
                 ) : null}
-                <p className="message">
-                  Passwords must contain at least eight characters, including at
-                  least 1 letter and 1 number.
-                </p>
               </div>
             </div>
             <Button onClick={handleSubmit}> Sign up</Button>

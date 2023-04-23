@@ -2,7 +2,8 @@ import Header from "./components/common/Header.jsx";
 // import AllQuestions from "./pages/AllQuestions.jsx";
 // import Nav from "./components/nav.jsx";
 // import { Footer } from "./components/Footer.jsx";
-import { SignUp } from "./pages/SignUp.jsx";
+// import { SignUp } from "./pages/SignUp.jsx";
+import { Login } from "./pages/Login.jsx";
 import GlobalStyle from "./styles/GlobalStyle.js";
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
         <div className="wrapper">
           {/* <Nav /> */}
           <div className="container">{/* <AllQuestions /> */}</div>
-          <SignUp />
+          {/* <SignUp /> */}
+          <Login />
         </div>
         {/* <Footer /> */}
       </div>

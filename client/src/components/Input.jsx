@@ -5,6 +5,7 @@ export const Input = styled.div`
   flex-direction: column;
 
   width: 316px;
+  margin-bottom: 36px;
   padding: 24px 0 24px 24px;
 
   background-color: white;
