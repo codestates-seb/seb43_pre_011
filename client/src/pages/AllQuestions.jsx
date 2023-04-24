@@ -4,8 +4,7 @@ import Filter from "../components/Filter.jsx";
 import { BtnBlueFill } from "../styles/common.js";
 import BREAKPOINT from "../breakpoint.js";
 import Paging from "../components/Paging.jsx";
-
-import Question from "../components/question.jsx";
+import Question from "../components/Question.jsx";
 
 const StyledQuestions = styled.div`
   width: calc(100% - 32.4rem);

@@ -1,6 +1,6 @@
-import Tag from "../components/tag.jsx";
+import Tag from "./tag.jsx";
 import { LinkBlue } from "../styles/common.js";
-import favicons from "../assets/favicons-sprite32.png";
+import userImg from "../assets/user.png";
 import styled from "styled-components";
 
 const StyledQuestion = styled.li`
@@ -12,7 +12,7 @@ const StyledQuestion = styled.li`
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
-    flex-basis: 11rem;
+    flex: 0 0 7rem;
     color: var(--gray);
 
     p:first-of-type {
@@ -24,17 +24,30 @@ const StyledQuestion = styled.li`
     display: flex;
     flex-direction: column;
     line-height: 1.3em;
-    word-break: break-word;
-    hyphens: auto;
     margin-bottom: 1.3rem;
+    flex-shrink: 1;
 
     h3 {
       font-size: 1.7rem;
       margin-bottom: 0.5rem;
+      word-break: break-word;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
     }
 
     p {
       margin-bottom: 0.8rem;
+      word-break: break-word;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
     }
 
     .info {
@@ -50,8 +63,6 @@ const StyledQuestion = styled.li`
           display: block;
           width: 1.6rem;
           height: 1.6rem;
-          background: url(${favicons}) no-repeat 0 0;
-          background-size: 1.6rem;
         }
 
         strong {
@@ -89,7 +100,7 @@ const Question = () => {
         <div className="info">
           <Tag tags={tags} />
           <div className="profile">
-            <span className="profile-img"></span>
+            <img className="profile-img" src={userImg} alt="user profile img" />
             <LinkBlue as="span">username</LinkBlue>
             <strong>659</strong>
             asked 10 mins ago

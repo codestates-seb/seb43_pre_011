@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { BtnBlueFill, BtnBlueLine, LinkBlue } from "../styles/common";
 import sprites from "../assets/sprites.svg";
+import userImg from "../assets/user.png";
 import { useState } from "react";
 
 const StyledHeader = styled.header`
@@ -164,11 +165,11 @@ const StyledHeader = styled.header`
         background: var(--hover-gray);
       }
     }
-    .profile span {
+    .profile img {
       display: block;
       width: 2.4rem;
       height: 2.4rem;
-      background: url(${sprites}) no-repeat -0.3rem -40rem;
+      border-radius: 0.3rem;
     }
 
     button {
@@ -243,7 +244,7 @@ const Header = () => {
           {isLogin ? (
             <>
               <a href="/" className="profile">
-                <span></span>
+                <img src={userImg} alt="user profile img" />
               </a>
               <a href="/" className="inbox">
                 <svg
