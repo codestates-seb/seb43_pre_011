@@ -1,9 +1,11 @@
 import Header from "./components/Header.jsx";
 import Nav from "./components/nav.jsx";
-import AllQuestions from "./pages/AllQuestions.jsx";
 import { Footer } from "./components/Footer.jsx";
 import GlobalStyle from "./styles/GlobalStyle.js";
 import styled from "styled-components";
+import AllQuestions from "./pages/AllQuestions.jsx";
+// import ReadQuestion from "./pages/QuestionDetail.jsx";
+// import UpdateQuestion from "./pages/UpdateQuestion.jsx";
 
 const StyledApp = styled.div`
   .wrapper {
@@ -34,6 +36,8 @@ function App() {
           <Nav />
           <div className="container">
             <AllQuestions />
+            {/* <ReadQuestion />
+            <UpdateQuestion /> */}
           </div>
         </div>
         <Footer />
