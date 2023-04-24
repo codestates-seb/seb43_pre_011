@@ -11,7 +11,6 @@ import javax.validation.constraints.Positive;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class MemberPostDto {
 
     @Email

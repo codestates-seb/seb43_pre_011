@@ -1,8 +1,6 @@
 package core.app.member.mapper;
 
-import core.app.member.dto.MemberPatchDto;
-import core.app.member.dto.MemberPostDto;
-import core.app.member.dto.MemberResponseDto;
+import core.app.member.dto.MemberDto;
 import core.app.member.entity.Member;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,66 +9,75 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-04-22T21:09:40+0900",
+    date = "2023-04-24T10:57:09+0900",
     comments = "version: 1.5.1.Final, compiler: javac, environment: Java 11.0.18 (Azul Systems, Inc.)"
 )
 @Component
 public class MemberMapperImpl implements MemberMapper {
 
     @Override
-    public Member memberPostDtoToMember(MemberPostDto memberPostDto) {
-        if ( memberPostDto == null ) {
+    public Member memberPostDtoToMember(MemberDto.Post requestBody) {
+        if ( requestBody == null ) {
             return null;
         }
 
         Member member = new Member();
 
-        member.setEmail( memberPostDto.getEmail() );
-        member.setPassword( memberPostDto.getPassword() );
-        member.setNickName( memberPostDto.getNickName() );
+        member.setEmail( requestBody.getEmail() );
+        member.setPassword( requestBody.getPassword() );
+        member.setNickName( requestBody.getNickName() );
 
         return member;
     }
 
     @Override
-    public Member memberPatchDtoToMember(MemberPatchDto memberPatchDto) {
-        if ( memberPatchDto == null ) {
+    public Member memberPatchDtoToMember(MemberDto.Patch requestBody) {
+        if ( requestBody == null ) {
             return null;
         }
 
         Member member = new Member();
 
-        member.setMemberId( memberPatchDto.getMemberId() );
-        member.setEmail( memberPatchDto.getEmail() );
-        member.setPassword( memberPatchDto.getPassword() );
-        member.setNickName( memberPatchDto.getNickName() );
+        member.setMemberId( requestBody.getMemberId() );
+        member.setEmail( requestBody.getEmail() );
+        member.setPassword( requestBody.getPassword() );
+        member.setNickName( requestBody.getNickName() );
 
         return member;
     }
 
     @Override
-    public MemberResponseDto memberToMemberResponseDto(Member member) {
+    public MemberDto.Response memberToMemberResponseDto(Member member) {
         if ( member == null ) {
             return null;
         }
 
-        MemberResponseDto memberResponseDto = new MemberResponseDto();
+        long memberId = 0L;
+        String email = null;
+        String password = null;
+        String nickName = null;
 
-        memberResponseDto.setMemberId( member.getMemberId() );
-        memberResponseDto.setEmail( member.getEmail() );
-        memberResponseDto.setPassword( member.getPassword() );
-        memberResponseDto.setNickName( member.getNickName() );
+        if ( member.getMemberId() != null ) {
+            memberId = member.getMemberId();
+        }
+        email = member.getEmail();
+        password = member.getPassword();
+        nickName = member.getNickName();
 
-        return memberResponseDto;
+        int grade = 0;
+
+        MemberDto.Response response = new MemberDto.Response( memberId, email, password, nickName, grade );
+
+        return response;
     }
 
     @Override
-    public List<MemberResponseDto> memberToMemberResponseDtos(List<Member> members) {
+    public List<MemberDto.Response> memberToMemberResponseDtos(List<Member> members) {
         if ( members == null ) {
             return null;
         }
 
-        List<MemberResponseDto> list = new ArrayList<MemberResponseDto>( members.size() );
+        List<MemberDto.Response> list = new ArrayList<MemberDto.Response>( members.size() );
         for ( Member member : members ) {
             list.add( memberToMemberResponseDto( member ) );
         }
