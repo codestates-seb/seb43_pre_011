@@ -21,6 +21,9 @@ ${reset}
 	--light-blue: #6bbbf7;
 	--bg-gray: #f8f9f9;
 	--hover-gray: #e3e6e8;
+	--side-bg: #fdf7e2;
+	--side-title: #fbf3d5;
+	--side-border: #f1e5bc;
 }
 
 * {
