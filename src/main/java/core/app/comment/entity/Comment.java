@@ -1,13 +1,11 @@
 package core.app.comment.entity;
 
-import lombok.AllArgsConstructor;
+import core.app.member.entity.Member;
+import core.app.question.entity.Question;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -15,15 +13,24 @@ import javax.persistence.Id;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long commentId;
-    private String comment;
-    private Long memberId;
-    private Long boardId;
+    private long commentId;
 
-    public Comment(Long commentId, String comment, Long memberId, Long boardId) {
+    private String content;
+
+    // 질문 게시글과 다:1 매핑
+    @ManyToOne
+    @JoinColumn(name = "question_id")
+    private Question question;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+
+    public Comment(Long commentId, String content, Question question) {
         this.commentId = commentId;
-        this.comment = comment;
-        this.memberId = memberId;
-        this.boardId = boardId;
+        this.content = content;
+        this.question = question;
+
     }
 }

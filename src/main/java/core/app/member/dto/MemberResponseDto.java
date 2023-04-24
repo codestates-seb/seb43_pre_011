@@ -3,15 +3,19 @@ package core.app.member.dto;
 import core.app.validator.NotSpace;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
+@Getter
 @AllArgsConstructor
-@NoArgsConstructor
-@Data
 public class MemberResponseDto {
     private Long memberId;
     private String email;
     private String password;
     private String nickName;
     private int grade;
+    private LocalDateTime createAt;
+    private LocalDateTime modifiedAt;
 }

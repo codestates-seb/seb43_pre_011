@@ -11,7 +11,6 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
 public class MemberPatchDto {
 

@@ -1,7 +1,9 @@
 package core.app.member.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import core.app.like.entity.Like;
+import core.app.audit.Auditable;
+import core.app.comment.entity.Comment;
+import core.app.vote.entity.Vote;
 import core.app.question.entity.Question;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -14,8 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
-public class Member {
+public class Member extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,12 +31,17 @@ public class Member {
     @Column(nullable = false)
     private String nickName;
 
+    // 한 명의 member가 여러 개의 질문 작성
     @OneToMany(mappedBy = "member")
-    @JsonManagedReference
     private List<Question> questions = new ArrayList<>();
 
+    // 한 명의 member가 여러 개의 코멘트 작성
     @OneToMany(mappedBy = "member")
-    private List<Like> likes = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
+
+    // 한 명의 member가 여러 개의 좋아요
+    @OneToMany(mappedBy = "member")
+    private List<Vote> votes = new ArrayList<>();
 
 
 }

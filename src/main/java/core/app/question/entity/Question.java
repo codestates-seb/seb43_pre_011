@@ -2,7 +2,8 @@ package core.app.question.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import core.app.like.entity.Like;
+import core.app.comment.entity.Comment;
+import core.app.vote.entity.Vote;
 import core.app.member.entity.Member;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -18,6 +19,7 @@ import java.util.List;
 @Getter @Setter
 @EntityListeners(AuditingEntityListener.class)
 public class Question {
+
     @Id
     private Long questionId; //질문 번호
     private String title; //질문 제목
@@ -31,9 +33,11 @@ public class Question {
     @JoinColumn(name = "member_id")
     @JsonBackReference
     private Member member;
-    private String comment;
 
     @OneToMany(mappedBy = "question")
-    private List<Like> likes = new ArrayList<>();
+    private List<Comment> comment = new ArrayList();
+
+    @OneToMany(mappedBy = "question")
+    private List<Vote> votes = new ArrayList<>();
 
 }
