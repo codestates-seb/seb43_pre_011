@@ -1,4 +1,4 @@
-package core.app.like.entity;
+package core.app.vote.entity;
 
 import core.app.member.entity.Member;
 import core.app.question.entity.Question;
@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-public class Like {
+public class Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

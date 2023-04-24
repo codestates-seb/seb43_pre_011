@@ -26,8 +26,8 @@ public class CommentService {
 
     public Comment updateComment(Comment comment){
         Comment findComment = findComment(comment.getCommentId());
-        Optional.ofNullable(comment.getComment())
-                .ifPresent(findComment::setComment);
+        Optional.ofNullable(comment.getContent())
+                .ifPresent(findComment::setContent);
         Comment updateComment = commentRepository.save(findComment);
 
         return updateComment;
