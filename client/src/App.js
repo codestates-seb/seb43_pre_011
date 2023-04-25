@@ -4,6 +4,7 @@ import AllQuestions from "./pages/AllQuestions.jsx";
 import { Footer } from "./components/Footer.jsx";
 import GlobalStyle from "./styles/GlobalStyle.js";
 import styled from "styled-components";
+//import AskQuestionPage from "./pages/AskQuestionP.jsx";
 
 const StyledApp = styled.div`
   .wrapper {
