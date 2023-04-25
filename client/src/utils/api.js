@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const SignUpApi = async (form) => {
   try {
-    const response = await axios.post("/users/signup", form, {
+    const response = await axios.post("/members", form, {
       headers: {
         "Content-Type": "application/json",
       },

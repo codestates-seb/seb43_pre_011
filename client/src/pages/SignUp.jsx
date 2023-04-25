@@ -6,7 +6,7 @@ import { SignUpText } from "../components/SignUpText.jsx";
 import { SignUpApi } from "../utils/api";
 import useCheckInput from "../hooks/useCheckInput";
 import useInput from "../hooks/useInput";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import BREAKPOINT from "../breakpoint.js";
 
 const Background = styled.div`
@@ -66,7 +66,7 @@ const Button = styled(BtnBlueFill)`
 `;
 
 export const SignUp = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [preventSubmit, setPreventSubmit] = useState(true);
   const [nickname, nicknameHandler] = useInput("");
   const [nicknameError, setNicknameError] = useState(false);
@@ -124,7 +124,7 @@ export const SignUp = () => {
     };
     const response = await SignUpApi(form);
     if (response) {
-      // navigate("/users/login");
+      navigate("/users/login");
     }
   };
 
