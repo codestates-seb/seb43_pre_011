@@ -21,5 +21,4 @@ public class QuestionPatchDto {
 
     private Long memberId;
 
-    private LocalDateTime modifiedAt;
 }

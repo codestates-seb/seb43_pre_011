@@ -2,6 +2,7 @@ package core.app.question.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import core.app.audit.Auditable;
 import core.app.comment.entity.Comment;
 import core.app.vote.entity.Vote;
 import core.app.member.entity.Member;
@@ -18,17 +19,12 @@ import java.util.List;
 @Entity
 @Getter @Setter
 @EntityListeners(AuditingEntityListener.class)
-public class Question {
+public class Question extends Auditable {
 
     @Id
     private Long questionId; //질문 번호
     private String title; //질문 제목
     private String body; //질문 본문
-    @LastModifiedDate
-    private LocalDateTime modifiedAt; //수정 시간
-    @CreatedDate
-    private LocalDateTime createdAt; //만들어진 시간
-
     @ManyToOne
     @JoinColumn(name = "member_id")
     @JsonBackReference

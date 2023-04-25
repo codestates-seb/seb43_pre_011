@@ -20,6 +20,4 @@ public class QuestionPostDto {
     private Long memberId;
     @Positive
     private Long like;
-
-    private LocalDateTime createdAt;
 }
