@@ -6,6 +6,7 @@ import styled from "styled-components";
 import AllQuestions from "./pages/AllQuestions.jsx";
 // import ReadQuestion from "./pages/QuestionDetail.jsx";
 // import UpdateQuestion from "./pages/UpdateQuestion.jsx";
+//import AskQuestionPage from "./pages/AskQuestionP.jsx";
 
 const StyledApp = styled.div`
   .wrapper {

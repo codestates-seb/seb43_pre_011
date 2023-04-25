@@ -21,9 +21,12 @@ ${reset}
 	--light-blue: #6bbbf7;
 	--bg-gray: #f8f9f9;
 	--hover-gray: #e3e6e8;
+<<<<<<< HEAD
+=======
 	--side-bg: #fdf7e2;
 	--side-title: #fbf3d5;
 	--side-border: #f1e5bc;
+>>>>>>> 9d88cff7d62857f8b40aa32c1cc05f9100bc16db
 }
 
 * {
