@@ -9,9 +9,9 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 @AllArgsConstructor
-@NoArgsConstructor
-@Data
 public class QuestionPatchDto {
     private long questionId;
     @NotSpace
