@@ -15,8 +15,8 @@ public class QuestionResponseDto {
     private long questionId;
     private String title;
     private String body;
-
     private long memberId;
-
+    private LocalDateTime createAt;
+    private LocalDateTime modifiedAt;
 
 }

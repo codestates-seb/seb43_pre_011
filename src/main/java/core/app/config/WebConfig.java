@@ -7,8 +7,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry corsRegistry){
         corsRegistry.addMapping("/**")
-                .allowedOrigins("https://f6b6b9ce4c90.ngrok.app")
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedOrigins("http://localhost:3000/")
+                .allowedMethods("GET", "POST", "PATCH", "PUT","DELETE")
                 .allowedHeaders("*")
                 .allowCredentials(true)
                 .maxAge(3000);

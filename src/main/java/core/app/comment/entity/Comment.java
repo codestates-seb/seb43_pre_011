@@ -1,5 +1,6 @@
 package core.app.comment.entity;
 
+import core.app.audit.Auditable;
 import core.app.member.entity.Member;
 import core.app.question.entity.Question;
 import lombok.Data;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Comment {
+public class Comment extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long commentId;

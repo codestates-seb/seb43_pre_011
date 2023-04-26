@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 public class CommentDto {
 
     @Getter
@@ -57,5 +59,7 @@ public class CommentDto {
         private long memberId;
         private long questionId;
         private Vote vote;
+        private LocalDateTime createAt;
+        private LocalDateTime modifiedAt;
     }
 }
