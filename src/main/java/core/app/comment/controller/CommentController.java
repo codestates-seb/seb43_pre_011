@@ -8,7 +8,9 @@ import core.app.comment.entity.Comment;
 import core.app.comment.mapper.CommentMapper;
 import core.app.comment.service.CommentService;
 import core.app.dto.SingleResponseDto;
+import core.app.member.entity.Member;
 import core.app.member.service.MemberService;
+import core.app.question.entity.Question;
 import core.app.question.service.QuestionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +45,13 @@ public class CommentController {
     @PostMapping
     public ResponseEntity postComment(@Valid @RequestBody CommentDto.Post requestBody){
 
-
-
         Comment comment = mapper.commentPostDtoToComment(requestBody);
+
+        Member member = memberService.findMember(requestBody.getMemberId());
+        Question question = questionService.findQuestion(requestBody.getQuestionId());
+
+        comment.setMember(member);
+        comment.setQuestion(question);
 
         Comment createComment = commentService.createComment(comment);
 

@@ -33,7 +33,6 @@ public class Question extends Auditable {
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     @JsonBackReference
-
     private Member member;
 
     @OneToMany(mappedBy = "question")

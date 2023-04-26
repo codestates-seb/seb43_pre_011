@@ -1,5 +1,6 @@
 package core.app.comment.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import core.app.audit.Auditable;
 import core.app.member.entity.Member;
 import core.app.question.entity.Question;
@@ -23,11 +24,13 @@ public class Comment extends Auditable {
 
     // 질문 게시글과 다:1 매핑
     @ManyToOne
-    @JoinColumn(name = "question_id")
+    @JoinColumn(name = "QUESTION_ID")
+    @JsonBackReference
     private Question question;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "MEMBER_ID")
+    @JsonBackReference
     private Member member;
 
 }

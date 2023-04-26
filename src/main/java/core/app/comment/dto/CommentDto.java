@@ -2,16 +2,14 @@ package core.app.comment.dto;
 
 import core.app.validator.NotSpace;
 import core.app.vote.entity.Vote;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 public class CommentDto {
 
     @Getter
+    @AllArgsConstructor
     @NoArgsConstructor
     public static class Post{
 
@@ -22,11 +20,6 @@ public class CommentDto {
 
         private long questionId;
 
-        public Post(String comment, long memberId, long questionId) {
-            this.comment = comment;
-            this.memberId = memberId;
-            this.questionId = questionId;
-        }
     }
 
     @Getter

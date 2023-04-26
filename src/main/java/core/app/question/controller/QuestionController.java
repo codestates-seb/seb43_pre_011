@@ -41,6 +41,7 @@ public class QuestionController {
         Member member = memberService.findMember(questionPostDto.getMemberId());
 
         question.setMember(member);
+
         Question responseContent = questionService.createQuestion(question);
         QuestionResponseDto response = questionMapper.questionToQuestionResponseDto(responseContent);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
