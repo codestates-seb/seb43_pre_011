@@ -11,19 +11,21 @@ import BREAKPOINT from "../breakpoint.js";
 
 const Background = styled.div`
   display: flex;
+  flex-grow: 1;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 100%;
+  width: 100vw;
+  min-width: 420px;
   min-height: calc(100vh - 50px);
   background-color: #f1f2f3;
-  @media screen and (max-width: ${BREAKPOINT.mobile}) {
+  @media screen and (max-width: ${BREAKPOINT.tablet}) {
     .side-content {
       display: none;
     }
   }
-  @media screen and (min-width: ${BREAKPOINT.mobile}) {
+  @media screen and (min-width: ${BREAKPOINT.tablet}) {
     .top-content {
       display: none;
     }
@@ -68,7 +70,7 @@ const Button = styled(BtnBlueFill)`
 export const SignUp = () => {
   const navigate = useNavigate();
   const [preventSubmit, setPreventSubmit] = useState(true);
-  const [nickname, nicknameHandler] = useInput("");
+  const [nickName, nicknameHandler] = useInput("");
   const [nicknameError, setNicknameError] = useState(false);
   const [email, emailHandler] = useInput("");
   const [password, passwordHandler] = useInput("");
@@ -76,12 +78,12 @@ export const SignUp = () => {
 
   // nickname, email, password 유효성 검사 코드
   useEffect(() => {
-    if (nickname === email) {
+    if (nickName === email) {
       setNicknameError(true);
     } else {
       setNicknameError(false);
     }
-  }, [nickname, email]);
+  }, [nickName, email]);
   const emailError = useCheckInput(
     email,
     /[a-zA-Z0-9._]+@[a-zA-Z0-9]+.[a-zA-Z0-9.]+/gm,
@@ -108,6 +110,7 @@ export const SignUp = () => {
       setPreventSubmit(false); // api 통신 활성화를 위한 상태 변경
     } else {
       setPreventSubmit(true);
+      console.log(`preventSubmit ${preventSubmit}`);
     }
   }, [emailError, passwordError]);
 
@@ -115,17 +118,17 @@ export const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitted(true); // 에러 메시지 활성화를 위한 상태변경
-
-    if (preventSubmit) return;
     const form = {
-      nickname,
+      nickName,
       email,
       password,
     };
     const response = await SignUpApi(form);
+    console.log("good");
     if (response) {
       navigate("/users/login");
     }
+    if (preventSubmit) return;
   };
 
   return (
@@ -145,7 +148,7 @@ export const SignUp = () => {
                 Display name
                 <input
                   type="text"
-                  value={nickname}
+                  value={nickName}
                   onChange={nicknameHandler}
                   className={
                     isSubmitted && nicknameError ? "input error" : "input"
