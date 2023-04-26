@@ -12,11 +12,8 @@ spring:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-<<<<<<< HEAD
+
       ddl-auto: update
-    show-sql: true
-=======
-      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
@@ -26,4 +23,3 @@ spring:
 mail:
   address:
     admin: admin@gmail.com
->>>>>>> d89187dd16726e2638b9e5ae8d2dc039d9a96b88
