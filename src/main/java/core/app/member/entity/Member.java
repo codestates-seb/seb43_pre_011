@@ -29,8 +29,6 @@ public class Member extends Auditable {
     @Column(nullable = false)
     private String nickName;
 
-    @Column(nullable = false)
-    private int grade;
 
     // 한 명의 member가 여러 개의 질문 작성
     @OneToMany(mappedBy = "member")

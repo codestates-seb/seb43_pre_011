@@ -26,13 +26,10 @@ public class MemberPostDto {
     @Pattern(regexp = "^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$",
              message = "2자 이상 16자 이하, 영어 또는 숫자 또는 한글로 구성")
     private String nickName;
-    @Positive
-    private int grade;
 
-    public MemberPostDto(String email, String password, String nickName, int grade) {
+    public MemberPostDto(String email, String password, String nickName) {
         this.email = email;
         this.password = password;
         this.nickName = nickName;
-        this.grade = grade;
     }
 }

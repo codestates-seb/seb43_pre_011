@@ -31,8 +31,4 @@ public class MemberPatchDto {
             message = "2자 이상 16자 이하, 영어 또는 숫자 또는 한글로 구성")
     private String nickName;
 
-    @NotSpace
-    @Positive
-    private int grade;
-
 }

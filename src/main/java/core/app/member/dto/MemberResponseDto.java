@@ -15,7 +15,6 @@ public class MemberResponseDto {
     private String email;
     private String password;
     private String nickName;
-    private int grade;
     private LocalDateTime createAt;
     private LocalDateTime modifiedAt;
 }
