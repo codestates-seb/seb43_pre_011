@@ -26,34 +26,29 @@ import java.util.List;
 public class QuestionController {
 
     private final QuestionService questionService;
-    private final QuestionMapper questionMapper;
+    private final QuestionMapper mapper;
     private final MemberService memberService;
 
-    public QuestionController(QuestionService questionService, QuestionMapper questionMapper, MemberService memberService) {
+    public QuestionController(QuestionService questionService, QuestionMapper mapper, MemberService memberService) {
         this.questionService = questionService;
-        this.questionMapper = questionMapper;
+        this.mapper = mapper;
         this.memberService = memberService;
     }
 
     @PostMapping
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionPostDto questionPostDto){
-        Question question = questionMapper.questionPostDtoToQuestion(questionPostDto);
-        Member member = memberService.findMember(questionPostDto.getMemberId());
+        Question question = questionService.createQuestion(mapper.questionPostDtoToQuestion(questionPostDto));
 
-        question.setMember(member);
-
-        Question responseContent = questionService.createQuestion(question);
-        QuestionResponseDto response = questionMapper.questionToQuestionResponseDto(responseContent);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.questionToQuestionResponseDto(question)), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{question-id}") //질문 수정
     public ResponseEntity patchQuestion(@PathVariable("question-id") long questionId,
                                         @Valid @RequestBody QuestionPatchDto questionPatchDto){
         questionPatchDto.setQuestionId(questionId);
-        Question question = questionService.updateQuestion(questionMapper.questionPatchDtoToQuestion(questionPatchDto));
+        Question question = questionService.updateQuestion(mapper.questionPatchDtoToQuestion(questionPatchDto));
 
-        return new ResponseEntity<>(new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(question)),HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.questionToQuestionResponseDto(question)),HttpStatus.OK);
 
 
     }
@@ -61,7 +56,7 @@ public class QuestionController {
     public ResponseEntity getQuestion(@PathVariable("question-id") long questionId){
         Question question = questionService.findQuestion(questionId);
 
-        return new ResponseEntity<>(new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(question)),HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.questionToQuestionResponseDto(question)),HttpStatus.OK);
     }
 
     @GetMapping
@@ -71,7 +66,7 @@ public class QuestionController {
 
         List<Question> questions = pageQuestions.getContent();
 
-        return new ResponseEntity<>(new MultiResponseDto<>(questionMapper.questionToQuestionResponseDtos(questions),pageQuestions),HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(mapper.questionToQuestionResponseDtos(questions),pageQuestions),HttpStatus.OK);
     }
 
     @DeleteMapping("/{question-id}") //질문 삭제

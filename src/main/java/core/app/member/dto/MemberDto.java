@@ -1,6 +1,7 @@
 package core.app.member.dto;
 
 import core.app.audit.Auditable;
+import core.app.member.entity.Member;
 import core.app.validator.NotSpace;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,8 +14,6 @@ import java.time.LocalDateTime;
 
 public class MemberDto{
     @Getter
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class Post{
 
         @NotSpace
@@ -32,8 +31,6 @@ public class MemberDto{
     }
 
     @Getter
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class Patch {
 
         private long memberId;

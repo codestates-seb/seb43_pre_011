@@ -26,12 +26,10 @@ public class Comment extends Auditable {
     // 질문 게시글과 다:1 매핑
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
-    @JsonBackReference
     private Question question;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
-    @JsonBackReference
     private Member member;
 
     @OneToOne(mappedBy = "comment")

@@ -4,9 +4,6 @@
 package core.app.comment.mapper;
 
 import core.app.comment.dto.CommentDto;
-import core.app.comment.dto.CommentPatchDto;
-import core.app.comment.dto.CommentPostDto;
-import core.app.comment.dto.CommentResponseDto;
 import core.app.comment.entity.Comment;
 import org.mapstruct.Mapper;
 

@@ -10,17 +10,18 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
-@AllArgsConstructor
 public class QuestionPatchDto {
     private long questionId;
+
     @NotSpace
     private String title;
     @NotSpace
     private String body;
 
-    private long memberId;
-
     private LocalDateTime modifiedAt;
+
+    public void setQuestionId(long questionId){
+        this.questionId = questionId;
+    }
 
 }

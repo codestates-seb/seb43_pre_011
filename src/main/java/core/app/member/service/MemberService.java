@@ -27,7 +27,6 @@ public class MemberService {
 
         verifyExistsNickName(member.getNickName());
 
-
         return memberRepository.save(member);
     }
 
@@ -35,8 +34,6 @@ public class MemberService {
     public Member updateMember(Member member){
 
         Member findMember = findVerifiedMember(member.getMemberId());
-
-        // 로그인한 멤버와 작성자 확인 로직 필요 -> 같지 않으면 throw
 
                 Optional.ofNullable(member.getEmail())
                 .ifPresent(mail -> findMember.setEmail(mail));

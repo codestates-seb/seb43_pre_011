@@ -1,40 +1,48 @@
 package core.app.comment.dto;
 
+import core.app.member.entity.Member;
+import core.app.question.entity.Question;
 import core.app.validator.NotSpace;
 import core.app.vote.entity.CommentVote;
 import lombok.*;
 
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 public class CommentDto {
 
     @Getter
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class Post{
+
+        @Positive
+        private long memberId;
+
+        @Positive
+        private long questionId;
 
         @NotSpace
         private String comment;
 
-        private long memberId;
+        public Member getMember(){
+            Member member = new Member();
+            member.setMemberId(memberId);
+            return member;
+        }
 
-        private long questionId;
-
+        public Question getQuestion(){
+            Question question = new Question();
+            question.setQuestionId(questionId);
+            return question;
+        }
     }
 
     @Getter
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class Patch{
 
         private long commentId;
 
         @NotSpace
         private String comment;
-
-        private long memberId;
-
-        private long questionId;
 
         public void setCommentId(long commentId){
             this.commentId = commentId;
@@ -43,16 +51,29 @@ public class CommentDto {
 
     @Getter
     @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class Response{
 
         private long commentId;
-        private String comment;
+
+        @Setter(AccessLevel.NONE)
         private long memberId;
+
+        @Setter(AccessLevel.NONE)
         private long questionId;
+
+        private String comment;
+
         private CommentVote commentVote;
+
         private LocalDateTime createAt;
+
         private LocalDateTime modifiedAt;
+
+        public void setMember(Member member){
+            this.memberId = member.getMemberId();
+        }
+        public void setQuestion(Question question){
+            this.questionId = question.getQuestionId();
+        }
     }
 }

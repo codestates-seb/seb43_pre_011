@@ -2,8 +2,6 @@ package core.app.comment.controller;
 
 
 import core.app.comment.dto.CommentDto;
-import core.app.comment.dto.CommentPatchDto;
-import core.app.comment.dto.CommentPostDto;
 import core.app.comment.entity.Comment;
 import core.app.comment.mapper.CommentMapper;
 import core.app.comment.service.CommentService;
@@ -12,6 +10,7 @@ import core.app.member.entity.Member;
 import core.app.member.service.MemberService;
 import core.app.question.entity.Question;
 import core.app.question.service.QuestionService;
+import core.app.utils.UriCreator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,20 +20,20 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.net.URI;
 
 @CrossOrigin(origins = "http://localhost:3000/", allowedHeaders = "*", allowCredentials = "true")
 @Validated
 @RestController
 @RequestMapping("/comments") // /question/{question-id}/comments
-@Slf4j
 public class CommentController {
 
+    private final static String COMMENT_DEFAULT_URL = "/comments";
     private final CommentService commentService;
     private final CommentMapper mapper;
     private final MemberService memberService;
     private final QuestionService questionService;
 
-    @Autowired
     public CommentController(CommentService commentService, CommentMapper mapper, MemberService memberService, QuestionService questionService) {
         this.commentService = commentService;
         this.mapper = mapper;
@@ -45,17 +44,11 @@ public class CommentController {
     @PostMapping
     public ResponseEntity postComment(@Valid @RequestBody CommentDto.Post requestBody){
 
-        Comment comment = mapper.commentPostDtoToComment(requestBody);
+        Comment comment = commentService.createComment(mapper.commentPostDtoToComment(requestBody));
 
-        Member member = memberService.findMember(requestBody.getMemberId());
-        Question question = questionService.findQuestion(requestBody.getQuestionId());
+        URI location = UriCreator.createUri(COMMENT_DEFAULT_URL, comment.getCommentId());
 
-        comment.setMember(member);
-        comment.setQuestion(question);
-
-        Comment createComment = commentService.createComment(comment);
-
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.commentToCommentResponseDto(createComment)), HttpStatus.CREATED);
+        return ResponseEntity.created(location).build();
     }
 
     @PatchMapping("/{comment-id}")
@@ -64,12 +57,9 @@ public class CommentController {
 
         requestBody.setCommentId(commentId);
 
-        Comment comment = mapper.commentPatchDtoToComment(requestBody);
+        Comment comment = commentService.updateComment(mapper.commentPatchDtoToComment(requestBody));
 
-        Comment response = commentService.updateComment(comment);
-
-
-        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.commentToCommentResponseDto(comment)), HttpStatus.OK);
     }
 
     @GetMapping("/{comment-id}")
@@ -77,7 +67,7 @@ public class CommentController {
 
         Comment response = commentService.findComment(commentId);
 
-        return new ResponseEntity<>(mapper.commentToCommentResponseDto(response), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.commentToCommentResponseDto(response)), HttpStatus.OK);
     }
 
     @DeleteMapping("/{comment-id}")

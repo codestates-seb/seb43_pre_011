@@ -3,7 +3,6 @@ package core.app.question.mapper;
 import core.app.question.dto.QuestionPatchDto;
 import core.app.question.dto.QuestionPostDto;
 import core.app.question.dto.QuestionResponseDto;
-import core.app.question.dto.QuestionResponseDto.QuestionResponseDtoBuilder;
 import core.app.question.entity.Question;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-04-26T23:23:18+0900",
-    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.17 (Azul Systems, Inc.)"
+    date = "2023-04-27T00:50:38+0900",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.18 (Azul Systems, Inc.)"
 )
 @Component
 public class QuestionMapperImpl implements QuestionMapper {
@@ -28,6 +27,7 @@ public class QuestionMapperImpl implements QuestionMapper {
 
         question.setTitle( questionPostDto.getTitle() );
         question.setBody( questionPostDto.getBody() );
+        question.setMember( questionPostDto.getMember() );
 
         return question;
     }
@@ -53,17 +53,18 @@ public class QuestionMapperImpl implements QuestionMapper {
             return null;
         }
 
-        QuestionResponseDtoBuilder questionResponseDto = QuestionResponseDto.builder();
+        QuestionResponseDto questionResponseDto = new QuestionResponseDto();
 
+        questionResponseDto.setMember( question.getMember() );
         if ( question.getQuestionId() != null ) {
-            questionResponseDto.questionId( question.getQuestionId() );
+            questionResponseDto.setQuestionId( question.getQuestionId() );
         }
-        questionResponseDto.title( question.getTitle() );
-        questionResponseDto.body( question.getBody() );
-        questionResponseDto.createAt( question.getCreateAt() );
-        questionResponseDto.modifiedAt( question.getModifiedAt() );
+        questionResponseDto.setTitle( question.getTitle() );
+        questionResponseDto.setBody( question.getBody() );
+        questionResponseDto.setCreateAt( question.getCreateAt() );
+        questionResponseDto.setModifiedAt( question.getModifiedAt() );
 
-        return questionResponseDto.build();
+        return questionResponseDto;
     }
 
     @Override
