@@ -1,5 +1,5 @@
 import axios from "axios";
-axios.defaults.baseURL = "https://14e9af79fbfd.ngrok.app";
+axios.defaults.baseURL = "https://4256dbf9a9eb.ngrok.app";
 
 export const SignUpApi = async (form) => {
   try {
@@ -34,5 +34,14 @@ export const LoginApi = async (form) => {
     } else {
       alert(e.response?.data.message);
     }
+  }
+};
+
+export const DeleteApi = (type, id) => {
+  try {
+    axios.delete(`/${type}/${id}`);
+    console.log("삭제요청 성공");
+  } catch (e) {
+    console.log(e);
   }
 };

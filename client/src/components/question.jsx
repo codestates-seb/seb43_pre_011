@@ -2,6 +2,9 @@ import Tag from "./tag.jsx";
 import { LinkBlue } from "../styles/common.js";
 import userImg from "../assets/user.png";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { getMembersSelector } from "../store/index.js";
 
 const StyledQuestion = styled.li`
   display: flex;
@@ -25,7 +28,7 @@ const StyledQuestion = styled.li`
     flex-direction: column;
     line-height: 1.3em;
     margin-bottom: 1.3rem;
-    flex-shrink: 1;
+    flex-grow: 1;
 
     h3 {
       font-size: 1.7rem;
@@ -73,37 +76,44 @@ const StyledQuestion = styled.li`
   }
 `;
 
-const Question = () => {
-  // 임시
-  const tags = ["javascript", "css"];
+const Question = ({ question }) => {
+  const navigate = useNavigate();
+  const members = useRecoilValue(getMembersSelector);
+  // const nickname = members.filter((el) => el.memberId === question.memberId)[0]
+  //   .nickName;
+  const getLocalDate = (createAt) => {
+    return new Date(createAt).toLocaleDateString();
+  };
+
   return (
     <StyledQuestion>
       <div className="stats">
-        <p>0 votes</p>
+        <p>{question.votecount} votes</p>
         <p>0 answers</p>
-        <p>0 views</p>
+        {/* <p>0 views</p> */}
       </div>
       <div className="content">
         <div className="title">
           <h3>
-            <LinkBlue href="/">
-              why changing fillStyle in canvas 2D changes the color of
-              previously drawn rectangles?
+            <LinkBlue
+              onClick={() => {
+                navigate(`questions/${question.questionId}`, {
+                  state: question,
+                });
+              }}
+            >
+              {question.title}
             </LinkBlue>
           </h3>
-          <p>
-            I have following code that first draws 3 small yellow rectangles and
-            them draws a big blue one. I change fillStyle property before the
-            last drawing. As a result, all rectangles are blue. If The something
-          </p>
+          <p>{question.body}</p>
         </div>
         <div className="info">
-          <Tag tags={tags} />
+          <Tag tags={["javascript"]} />
+          {/* <Tag tags={question.tags} /> */}
           <div className="profile">
             <img className="profile-img" src={userImg} alt="user profile img" />
-            <LinkBlue as="span">username</LinkBlue>
-            <strong>659</strong>
-            asked 10 mins ago
+            <LinkBlue as="span">{members[0].nickName}</LinkBlue>
+            {getLocalDate(question.createAt)}
           </div>
         </div>
       </div>
