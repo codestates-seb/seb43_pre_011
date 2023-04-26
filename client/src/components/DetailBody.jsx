@@ -1,7 +1,9 @@
 import styled from "styled-components";
-import { LinkBlue, BtnBlueFill } from "../styles/common.js";
+import { LinkBlue } from "../styles/common.js";
 import Tag from "./tag.jsx";
 import userImg from "../assets/user.png";
+import { useNavigate } from "react-router-dom";
+import { DeleteApi } from "../utils/api.js";
 
 const StyledDetailBody = styled.div`
   display: flex;
@@ -99,7 +101,9 @@ const StyledDetailBody = styled.div`
   }
 `;
 
-const DetailBody = () => {
+const DetailBody = ({ data, type }) => {
+  const navigate = useNavigate();
+
   return (
     <StyledDetailBody>
       <div className="vote-box">
@@ -128,23 +132,38 @@ const DetailBody = () => {
         </button>
       </div>
       <div className="content">
-        <div className="content-body">본문 내용~~~~~~</div>
+        <div className="content-body">{data.body}</div>
         <Tag />
         <div className="content-footer">
           <div className="btns">
-            <a href="/">Share</a>
-            <a href="/">Edit</a>
-            <a href="/">Follow</a>
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(`/questions/edit/${data.questionId}`, { state: data });
+              }}
+            >
+              Edit
+            </a>
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                DeleteApi(type, data.questionId);
+              }}
+            >
+              Delete
+            </a>
           </div>
           <div className="user-profile">
-            <p>asked 20 mins ago</p>
+            {/* <p>asked 20 mins ago</p> */}
             <div>
               <img src={userImg} alt="user profile img" />
               <LinkBlue as="span">Username</LinkBlue>
             </div>
           </div>
         </div>
-        <div className="comment-wrap">
+        {/* <div className="comment-wrap">
           <div className="comment">
             comment~~~~~ - <LinkBlue as="span">username</LinkBlue>{" "}
             <span className="date">30 mins ago</span>
@@ -153,7 +172,7 @@ const DetailBody = () => {
             <textarea />
             <BtnBlueFill>Add comment</BtnBlueFill>
           </form>
-        </div>
+        </div> */}
       </div>
     </StyledDetailBody>
   );

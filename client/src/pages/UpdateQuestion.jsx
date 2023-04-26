@@ -3,6 +3,8 @@ import Sidebar from "../components/Sidebar.jsx";
 import TagInput from "../components/taginput.jsx";
 import { BtnBlueFill, LinkBlue } from "../styles/common";
 import BREAKPOINT from "../breakpoint";
+import { useLocation, useNavigate } from "react-router-dom";
+import Editor from "../components/editor.jsx";
 
 const StyledUpdateQuestion = styled.div`
   width: calc(100% - 32.4rem);
@@ -56,8 +58,12 @@ const StyledUpdateQuestion = styled.div`
 `;
 
 const UpdateQuestion = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const question = location.state;
+
   return (
-    <>
+    <div className="container">
       <StyledUpdateQuestion>
         <div className="yellow">
           Your edit will be placed in a queue until it is peer reviewed.
@@ -70,9 +76,9 @@ const UpdateQuestion = () => {
           hyperlinks.
         </div>
         <label htmlFor="title">Title</label>
-        <input type="text" id="title" />
+        <input type="text" id="title" value={question.title} />
         <label htmlFor="body">Body</label>
-        <div id="body">에디터</div>
+        <Editor />
         <p>Tag</p>
         <TagInput tags={["javascript"]} />
         <label htmlFor="summary">Edit Summary</label>
@@ -83,11 +89,11 @@ const UpdateQuestion = () => {
         />
         <div className="btns">
           <BtnBlueFill>Save edits</BtnBlueFill>
-          <LinkBlue>Cancel</LinkBlue>
+          <LinkBlue onClick={() => navigate(-1)}>Cancel</LinkBlue>
         </div>
       </StyledUpdateQuestion>
       <Sidebar mode="update" />
-    </>
+    </div>
   );
 };
 
