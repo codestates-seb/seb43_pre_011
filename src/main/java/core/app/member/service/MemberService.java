@@ -5,11 +5,9 @@ import core.app.exception.ExceptionCode;
 import core.app.member.entity.Member;
 import core.app.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -17,19 +15,18 @@ import java.util.Optional;
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
+
 
     @Autowired
-    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
+    public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     // member 등록(닉네임의 중복을 확인해서 가입)
     public Member createMember(Member member){
 
         verifyExistsNickName(member.getNickName());
-        member.setPassword(passwordEncoder.encode(member.getPassword()));
+
 
         return memberRepository.save(member);
     }

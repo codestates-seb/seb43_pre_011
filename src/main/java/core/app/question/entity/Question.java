@@ -17,12 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-<<<<<<< HEAD
+
 @Getter
 @Setter
-=======
-@Getter @Setter
->>>>>>> d89187dd16726e2638b9e5ae8d2dc039d9a96b88
+
 public class Question extends Auditable {
 
     @Id
@@ -33,12 +31,9 @@ public class Question extends Auditable {
 
 
     @ManyToOne
-<<<<<<< HEAD
     @JoinColumn(name = "MEMBER_ID")
     @JsonBackReference
-=======
-    @JoinColumn(name = "member_id")
->>>>>>> d89187dd16726e2638b9e5ae8d2dc039d9a96b88
+
     private Member member;
 
     @OneToMany(mappedBy = "question")
