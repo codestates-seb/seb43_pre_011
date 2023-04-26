@@ -1,5 +1,6 @@
 package core.app.member.dto;
 
+import core.app.audit.Auditable;
 import core.app.validator.NotSpace;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,8 +9,9 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
+import java.time.LocalDateTime;
 
-public class MemberDto {
+public class MemberDto{
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor
@@ -27,18 +29,18 @@ public class MemberDto {
         @NotSpace
         private String nickName;
 
-        @Positive
-        private int grade;
     }
 
     @Getter
     @AllArgsConstructor
-    public static class Patch{
+    @NoArgsConstructor
+    public static class Patch {
 
         private long memberId;
 
-        @NotSpace
+
         @Email
+        @NotSpace
         private String email;
 
         @NotSpace
@@ -49,9 +51,6 @@ public class MemberDto {
         @NotSpace
         private String nickName;
 
-        @Positive
-        private int grade;
-
         public void setMemberId(long memberId){
             this.memberId = memberId;
         }
@@ -59,12 +58,12 @@ public class MemberDto {
 
     @Getter
     @AllArgsConstructor
-    @NoArgsConstructor
     public static class Response{
         private long memberId;
         private String email;
         private String password;
         private String nickName;
-        private int grade;
+        private LocalDateTime createAt;
+        private LocalDateTime modifiedAt;
     }
 }

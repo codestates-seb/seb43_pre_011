@@ -1,7 +1,10 @@
 package core.app.member.mapper;
 
-import core.app.member.dto.MemberDto;
+import core.app.member.dto.MemberDto.Patch;
+import core.app.member.dto.MemberDto.Post;
+import core.app.member.dto.MemberDto.Response;
 import core.app.member.entity.Member;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -9,14 +12,14 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-04-24T17:40:38+0900",
-    comments = "version: 1.5.1.Final, compiler: javac, environment: Java 11.0.18 (Azul Systems, Inc.)"
+    date = "2023-04-26T13:23:25+0900",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.18 (Azul Systems, Inc.)"
 )
 @Component
 public class MemberMapperImpl implements MemberMapper {
 
     @Override
-    public Member memberPostDtoToMember(MemberDto.Post requestBody) {
+    public Member memberPostDtoToMember(Post requestBody) {
         if ( requestBody == null ) {
             return null;
         }
@@ -31,7 +34,7 @@ public class MemberMapperImpl implements MemberMapper {
     }
 
     @Override
-    public Member memberPatchDtoToMember(MemberDto.Patch requestBody) {
+    public Member memberPatchDtoToMember(Patch requestBody) {
         if ( requestBody == null ) {
             return null;
         }
@@ -47,7 +50,7 @@ public class MemberMapperImpl implements MemberMapper {
     }
 
     @Override
-    public MemberDto.Response memberToMemberResponseDto(Member member) {
+    public Response memberToMemberResponseDto(Member member) {
         if ( member == null ) {
             return null;
         }
@@ -56,6 +59,8 @@ public class MemberMapperImpl implements MemberMapper {
         String email = null;
         String password = null;
         String nickName = null;
+        LocalDateTime createAt = null;
+        LocalDateTime modifiedAt = null;
 
         if ( member.getMemberId() != null ) {
             memberId = member.getMemberId();
@@ -63,21 +68,21 @@ public class MemberMapperImpl implements MemberMapper {
         email = member.getEmail();
         password = member.getPassword();
         nickName = member.getNickName();
+        createAt = member.getCreateAt();
+        modifiedAt = member.getModifiedAt();
 
-        int grade = 0;
-
-        MemberDto.Response response = new MemberDto.Response( memberId, email, password, nickName, grade );
+        Response response = new Response( memberId, email, password, nickName, createAt, modifiedAt );
 
         return response;
     }
 
     @Override
-    public List<MemberDto.Response> memberToMemberResponseDtos(List<Member> members) {
+    public List<Response> memberToMemberResponseDtos(List<Member> members) {
         if ( members == null ) {
             return null;
         }
 
-        List<MemberDto.Response> list = new ArrayList<MemberDto.Response>( members.size() );
+        List<Response> list = new ArrayList<Response>( members.size() );
         for ( Member member : members ) {
             list.add( memberToMemberResponseDto( member ) );
         }

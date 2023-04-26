@@ -19,8 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin
 @RestController
-@RequestMapping("/question")
+@RequestMapping("/questions")
 @Validated
 public class QuestionController {
 
@@ -65,7 +66,7 @@ public class QuestionController {
 
     @GetMapping
     public ResponseEntity getQuestions(@RequestParam int page, @RequestParam int size){
-        Page<Question> pageQuestions = questionService.findQuestion(page,size);
+        Page<Question> pageQuestions = questionService.findQuestion(page - 1,size);
         List<Question> questions = pageQuestions.getContent();
 
         return new ResponseEntity<>(new MultiResponseDto<>(questionMapper.questionToQuestionResponseDtos(questions),pageQuestions),HttpStatus.OK);

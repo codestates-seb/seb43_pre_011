@@ -17,16 +17,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
-@EntityListeners(AuditingEntityListener.class)
+@Getter
+@Setter
 public class Question extends Auditable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionId; //질문 번호
     private String title; //질문 제목
     private String body; //질문 본문
+
+
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "MEMBER_ID")
     @JsonBackReference
     private Member member;
 

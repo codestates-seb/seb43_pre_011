@@ -19,6 +19,7 @@ import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.List;
 
+@CrossOrigin
 @Validated
 @RestController
 @RequestMapping("/members")

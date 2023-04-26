@@ -13,12 +13,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 public class QuestionPatchDto {
-    private Long questionId;
+    private long questionId;
     @NotSpace
     private String title;
     @NotSpace
     private String body;
 
-    private Long memberId;
+    private long memberId;
+
+    private LocalDateTime modifiedAt;
 
 }

@@ -1,8 +1,9 @@
 package core.app.comment.mapper;
 
-import core.app.comment.dto.CommentDto;
+import core.app.comment.dto.CommentDto.Patch;
+import core.app.comment.dto.CommentDto.Post;
+import core.app.comment.dto.CommentDto.Response;
 import core.app.comment.entity.Comment;
-import core.app.vote.entity.Vote;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -10,25 +11,27 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-04-24T17:40:38+0900",
-    comments = "version: 1.5.1.Final, compiler: javac, environment: Java 11.0.18 (Azul Systems, Inc.)"
+    date = "2023-04-26T13:23:25+0900",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.18 (Azul Systems, Inc.)"
 )
 @Component
 public class CommentMapperImpl implements CommentMapper {
 
     @Override
-    public Comment commentPostDtoToComment(CommentDto.Post requestBody) {
+    public Comment commentPostDtoToComment(Post requestBody) {
         if ( requestBody == null ) {
             return null;
         }
 
         Comment comment = new Comment();
 
+        comment.setComment( requestBody.getComment() );
+
         return comment;
     }
 
     @Override
-    public Comment commentPatchDtoToComment(CommentDto.Patch requestBody) {
+    public Comment commentPatchDtoToComment(Patch requestBody) {
         if ( requestBody == null ) {
             return null;
         }
@@ -36,37 +39,32 @@ public class CommentMapperImpl implements CommentMapper {
         Comment comment = new Comment();
 
         comment.setCommentId( requestBody.getCommentId() );
+        comment.setComment( requestBody.getComment() );
 
         return comment;
     }
 
     @Override
-    public CommentDto.Response commentToCommentResponseDto(Comment comment) {
+    public Response commentToCommentResponseDto(Comment comment) {
         if ( comment == null ) {
             return null;
         }
 
-        long commentId = 0L;
+        Response response = new Response();
 
-        commentId = comment.getCommentId();
-
-        String comment1 = null;
-        long memberId = 0L;
-        long boardId = 0L;
-        Vote vote = null;
-
-        CommentDto.Response response = new CommentDto.Response( commentId, comment1, memberId, boardId, vote );
+        response.setCommentId( comment.getCommentId() );
+        response.setComment( comment.getComment() );
 
         return response;
     }
 
     @Override
-    public List<CommentDto.Response> commentToCommentResponseDtos(List<Comment> comments) {
+    public List<Response> commentToCommentResponseDtos(List<Comment> comments) {
         if ( comments == null ) {
             return null;
         }
 
-        List<CommentDto.Response> list = new ArrayList<CommentDto.Response>( comments.size() );
+        List<Response> list = new ArrayList<Response>( comments.size() );
         for ( Comment comment : comments ) {
             list.add( commentToCommentResponseDto( comment ) );
         }

@@ -4,25 +4,32 @@ import core.app.validator.NotSpace;
 import core.app.vote.entity.Vote;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 public class CommentDto {
 
     @Getter
-    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Post{
 
         @NotSpace
         private String comment;
 
-        @NotSpace
         private long memberId;
 
-        @NotSpace
-        private long boardId;
+        private long questionId;
+
+        public Post(String comment, long memberId, long questionId) {
+            this.comment = comment;
+            this.memberId = memberId;
+            this.questionId = questionId;
+        }
     }
 
     @Getter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Patch{
 
         private long commentId;
@@ -30,11 +37,9 @@ public class CommentDto {
         @NotSpace
         private String comment;
 
-        @NotSpace
         private long memberId;
 
-        @NotSpace
-        private long boardId;
+        private long questionId;
 
         public void setCommentId(long commentId){
             this.commentId = commentId;
@@ -42,13 +47,15 @@ public class CommentDto {
     }
 
     @Getter
+    @Setter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Response{
 
         private long commentId;
         private String comment;
         private long memberId;
-        private long boardId;
+        private long questionId;
         private Vote vote;
     }
 }

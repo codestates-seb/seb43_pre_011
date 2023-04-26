@@ -9,6 +9,7 @@ import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,9 @@ public class Member extends Auditable {
     @Column(nullable = false)
     private String nickName;
 
+    @Column(nullable = false)
+    private int grade;
+
     // 한 명의 member가 여러 개의 질문 작성
     @OneToMany(mappedBy = "member")
     private List<Question> questions = new ArrayList<>();
@@ -42,6 +46,4 @@ public class Member extends Auditable {
     // 한 명의 member가 여러 개의 좋아요
     @OneToMany(mappedBy = "member")
     private List<Vote> votes = new ArrayList<>();
-
-
 }

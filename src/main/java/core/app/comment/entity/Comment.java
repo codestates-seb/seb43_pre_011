@@ -3,19 +3,22 @@ package core.app.comment.entity;
 import core.app.member.entity.Member;
 import core.app.question.entity.Question;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@Data
-@NoArgsConstructor
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long commentId;
 
-    private String content;
+    private String comment;
 
     // 질문 게시글과 다:1 매핑
     @ManyToOne
@@ -26,11 +29,4 @@ public class Comment {
     @JoinColumn(name = "member_id")
     private Member member;
 
-
-    public Comment(Long commentId, String content, Question question) {
-        this.commentId = commentId;
-        this.content = content;
-        this.question = question;
-
-    }
 }
