@@ -2,11 +2,8 @@ import styled from "styled-components";
 import BREAKPOINT from "../breakpoint.js";
 
 const Container = styled.footer`
-<<<<<<< HEAD
-=======
   position: relative;
   bottom: 0;
->>>>>>> 9d88cff7d62857f8b40aa32c1cc05f9100bc16db
   width: 100%;
   display: flex;
   flex-direction: row;

@@ -1,11 +1,13 @@
 import axios from "axios";
+axios.defaults.baseURL = "https://14e9af79fbfd.ngrok.app";
 
 export const SignUpApi = async (form) => {
   try {
-    const response = await axios.post("/users/signup", form, {
+    const response = await axios.post("/members", form, {
       headers: {
         "Content-Type": "application/json",
       },
+      "ngrok-skip-browser-warning": "69420",
     });
     return response;
   } catch (e) {
@@ -15,10 +17,11 @@ export const SignUpApi = async (form) => {
 
 export const LoginApi = async (form) => {
   try {
-    const response = await axios.post("/users/login", form, {
+    const response = await axios.post("/api/users/login", form, {
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     });
     localStorage.setItem("token", response.data.access_token);
     localStorage.setItem("userInfo", response.data.data); // 서버 연동후 수정 필요

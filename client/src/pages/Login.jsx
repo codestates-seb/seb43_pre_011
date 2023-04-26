@@ -5,7 +5,7 @@ import { Input } from "../components/Input.jsx";
 import { LoginApi } from "../utils/api";
 import useCheckInput from "../hooks/useCheckInput";
 import useInput from "../hooks/useInput";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Background = styled.div`
   display: flex;
@@ -21,6 +21,10 @@ const Background = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    .icon {
+      margin-bottom: 28px;
+      cursor: pointer;
+    }
     .title-sub {
       display: flex;
       justify-content: space-between;
@@ -55,7 +59,7 @@ const Button = styled(BtnBlueFill)`
 `;
 
 export const Login = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [preventSubmit, setPreventSubmit] = useState(true);
   const [email, emailHandler] = useInput("");
   const [password, passwordHandler] = useInput("");
@@ -103,13 +107,24 @@ export const Login = () => {
     };
     const response = await LoginApi(form);
     if (response) {
-      // navigate("/");
+      navigate("/questions");
     }
   };
 
   return (
     <Background>
       <div className="view-col">
+        <a href="/" className="icon">
+          <svg aria-hidden="true" width="32" height="37" viewBox="0 0 32 37">
+            <a href="/">home</a>
+            <path d="M26 33v-9h4v13H0V24h4v9h22Z" fill="#BCBBBB"></path>
+            <path
+              d="m21.5 0-2.7 2 9.9 13.3 2.7-2L21.5 0ZM26 18.4 13.3 7.8l2.1-2.5 12.7 10.6-2.1 2.5ZM9.1 15.2l15 7 1.4-3-15-7-1.4 3Zm14 10.79.68-2.95-16.1-3.35L7 23l16.1 2.99ZM23 30H7v-3h16v3Z"
+              fill="#F48024"
+            ></path>
+          </svg>
+        </a>
+
         <form>
           <Input>
             <div className="container"></div>
