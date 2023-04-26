@@ -1,20 +1,19 @@
 package core.app.question.dto;
 
-import core.app.validator.NotSpace;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
+@Builder
+@Getter
+@Setter
 @AllArgsConstructor
-@NoArgsConstructor
-@Data
+@ToString
 public class QuestionResponseDto {
     private Long questionId;
     private String title;
     private String body;
-    private Long memberId;
+    @Getter private Long memberId;
     private LocalDateTime modifiedAt;
     private LocalDateTime createdAt;
 }

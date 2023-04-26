@@ -48,7 +48,7 @@ public class QuestionService {
         return findQuestion;
     }
 
-    public Page<Question> findQuestion(int page, int size){
+    public Page<Question> findQuestions(int page, int size){
         return questionRepository.findAll(PageRequest.of(page,size, Sort.by("questionId").descending()));
     }
 

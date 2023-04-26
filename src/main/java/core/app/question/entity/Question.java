@@ -18,16 +18,15 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-@EntityListeners(AuditingEntityListener.class)
 public class Question extends Auditable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionId; //질문 번호
     private String title; //질문 제목
     private String body; //질문 본문
     @ManyToOne
     @JoinColumn(name = "member_id")
-    @JsonBackReference
     private Member member;
 
     @OneToMany(mappedBy = "question")
@@ -35,5 +34,4 @@ public class Question extends Auditable {
 
     @OneToMany(mappedBy = "question")
     private List<Vote> votes = new ArrayList<>();
-
 }

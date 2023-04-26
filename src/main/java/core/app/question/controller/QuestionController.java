@@ -20,7 +20,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/question")
+@RequestMapping("/questions")
 @Validated
 public class QuestionController {
 
@@ -34,7 +34,7 @@ public class QuestionController {
         this.memberService = memberService;
     }
 
-    @PostMapping //질문 등록, QuestionPostDto 에 유효성 검사 해야됨.
+    @PostMapping
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionPostDto questionPostDto){
         Question question = questionMapper.questionPostDtoToQuestion(questionPostDto);
         Member member = memberService.findMember(questionPostDto.getMemberId());
@@ -45,12 +45,11 @@ public class QuestionController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{question-id}") //질문 수정, questionPatchDto 에 유효성 검사 해야됨.
+    @PatchMapping("/{question-id}") //질문 수정
     public ResponseEntity patchQuestion(@PathVariable("question-id") long questionId,
                                         @Valid @RequestBody QuestionPatchDto questionPatchDto){
         questionPatchDto.setQuestionId(questionId);
         Question question = questionService.updateQuestion(questionMapper.questionPatchDtoToQuestion(questionPatchDto));
-        //questionService 에 updateQuestion 메소드 기능 구현해야됨!
 
         return new ResponseEntity<>(new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(question)),HttpStatus.OK);
 
@@ -58,14 +57,14 @@ public class QuestionController {
     }
     @GetMapping("/{question-id}") //질문 조회
     public ResponseEntity getQuestion(@PathVariable("question-id") long questionId){
-        Question question = questionService.findQuestion(questionId);//questionService 에 findQuestion 메소드 기능 구현!
+        Question question = questionService.findQuestion(questionId);
 
         return new ResponseEntity<>(new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(question)),HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity getQuestions(@RequestParam int page, @RequestParam int size){
-        Page<Question> pageQuestions = questionService.findQuestion(page,size);
+        Page<Question> pageQuestions = questionService.findQuestions(page-1,size);
         List<Question> questions = pageQuestions.getContent();
 
         return new ResponseEntity<>(new MultiResponseDto<>(questionMapper.questionToQuestionResponseDtos(questions),pageQuestions),HttpStatus.OK);

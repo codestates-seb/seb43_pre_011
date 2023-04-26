@@ -20,7 +20,7 @@ public class Member extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long memberId;
+    public Long memberId;
 
     @Column(nullable = false)
     private String email;
@@ -42,6 +42,9 @@ public class Member extends Auditable {
     // 한 명의 member가 여러 개의 좋아요
     @OneToMany(mappedBy = "member")
     private List<Vote> votes = new ArrayList<>();
+
+    @ElementCollection(fetch = FetchType.EAGER) // @ElementCollection 애너테이션은 사용자 등록시, 사용자의 권한을 등록하기 위한 권한 테이블을 새엇ㅇ.
+    private List<String> roles = new ArrayList<>();
 
 
 }
