@@ -1,8 +1,11 @@
 package core.app.vote.entity;
 
+import core.app.audit.Auditable;
+import core.app.comment.entity.Comment;
 import core.app.member.entity.Member;
 import core.app.question.entity.Question;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,16 +13,20 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-public class Vote {
+@NoArgsConstructor
+public class CommentVote{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long commentVoteId;
+
+    private boolean commentVoteFlag = false;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne
-    @JoinColumn(name = "question_id")
-    private Question question;
+    @OneToOne
+    @JoinColumn(name ="comment_id")
+    private Comment comment;
 }

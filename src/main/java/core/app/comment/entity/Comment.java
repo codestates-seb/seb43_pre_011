@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import core.app.audit.Auditable;
 import core.app.member.entity.Member;
 import core.app.question.entity.Question;
+import core.app.vote.entity.CommentVote;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,5 +33,8 @@ public class Comment extends Auditable {
     @JoinColumn(name = "MEMBER_ID")
     @JsonBackReference
     private Member member;
+
+    @OneToOne(mappedBy = "comment")
+    private CommentVote commentVote;
 
 }

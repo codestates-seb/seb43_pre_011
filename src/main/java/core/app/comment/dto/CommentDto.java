@@ -1,7 +1,7 @@
 package core.app.comment.dto;
 
 import core.app.validator.NotSpace;
-import core.app.vote.entity.Vote;
+import core.app.vote.entity.CommentVote;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -51,7 +51,7 @@ public class CommentDto {
         private String comment;
         private long memberId;
         private long questionId;
-        private Vote vote;
+        private CommentVote commentVote;
         private LocalDateTime createAt;
         private LocalDateTime modifiedAt;
     }

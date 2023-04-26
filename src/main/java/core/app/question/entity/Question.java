@@ -4,15 +4,11 @@ package core.app.question.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import core.app.audit.Auditable;
 import core.app.comment.entity.Comment;
-import core.app.vote.entity.Vote;
 import core.app.member.entity.Member;
+import core.app.vote.entity.QuestionVote;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +34,6 @@ public class Question extends Auditable {
     @OneToMany(mappedBy = "question")
     private List<Comment> comment = new ArrayList();
 
-    @OneToMany(mappedBy = "question")
-    private List<Vote> votes = new ArrayList<>();
+    @OneToOne(mappedBy = "question")
+    private QuestionVote questionVote;
 }
