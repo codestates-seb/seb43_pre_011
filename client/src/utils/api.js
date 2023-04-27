@@ -1,5 +1,5 @@
 import axios from "axios";
-axios.defaults.baseURL = "https://14e9af79fbfd.ngrok.app";
+axios.defaults.baseURL = "https://4256dbf9a9eb.ngrok.app";
 
 export const SignUpApi = async (form) => {
   try {
@@ -23,7 +23,8 @@ export const LoginApi = async (form) => {
       },
       withCredentials: true,
     });
-    localStorage.setItem("token", response.data.access_token);
+    localStorage.setItem("accessToken", response.data.access_token);
+    localStorage.setItem("refreshToken", response.data.refresh_token);
     localStorage.setItem("userInfo", response.data.data); // 서버 연동후 수정 필요
     axios.defaults.headers.common[
       "Authorization"

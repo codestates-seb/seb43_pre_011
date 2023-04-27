@@ -2,7 +2,9 @@ import styled from "styled-components";
 import { BtnBlueFill, BtnBlueLine, LinkBlue } from "../styles/common";
 import sprites from "../assets/sprites.svg";
 import userImg from "../assets/user.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { NavLink } from "react-router-dom";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -182,6 +184,25 @@ const Header = () => {
   // 임시 state
   const [isLogin, setIsLogin] = useState(false);
 
+  // login state 변경
+  useEffect(() => {
+    if (localStorage.token !== undefined) {
+      setIsLogin(true);
+    }
+  }, []);
+
+  // logout event
+  const logoutHandler = () => {
+    return axios
+      .patch("/users/logout")
+      .then((res) => {
+        localStorage.removeItem("userInfo");
+        setIsLogin(false);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
   return (
     <StyledHeader>
       <div className="container">
@@ -292,20 +313,21 @@ const Header = () => {
               </a>
               <BtnBlueLine
                 className="btn-logout"
-                onClick={() => setIsLogin(false)}
+                onClick={() => logoutHandler()}
               >
                 Log out
               </BtnBlueLine>
             </>
           ) : (
             <>
-              <BtnBlueLine
-                className="btn-login"
-                onClick={() => setIsLogin(true)}
-              >
-                Log in
-              </BtnBlueLine>
-              <BtnBlueFill className="btn-signup">Sign up</BtnBlueFill>
+              <NavLink to="/users/login" className="btn-login">
+                <BtnBlueLine onClick={() => setIsLogin(true)}>
+                  Log in
+                </BtnBlueLine>
+              </NavLink>
+              <NavLink to="members" className="btn-signup">
+                <BtnBlueFill>Sign up</BtnBlueFill>
+              </NavLink>
             </>
           )}
         </nav>

@@ -107,7 +107,7 @@ export const Login = () => {
     };
     const response = await LoginApi(form);
     if (response) {
-      navigate("/questions");
+      navigate("/questions?page=1&size=1");
     }
   };
 
