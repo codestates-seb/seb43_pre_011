@@ -8,8 +8,9 @@ import { ReactComponent as AskQuestionBackground } from "../assets/askquestion-b
 import TagInput from "../components/taginput.jsx";
 import { GeneralBtn } from "../components/Buttons.jsx";
 import { Footer } from "../components/Footer.jsx";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Editor from "../components/editor.jsx";
+import axios from "axios";
 
 const Main = styled.main`
   display: flex;
@@ -114,7 +115,7 @@ const Buttons = styled.div`
 `;
 
 function AskQuestionPage() {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   // Writing Tip Box 팝업을 위한 상태
   const [isClicked, setIsClicked] = useState(null);
 
@@ -133,14 +134,14 @@ function AskQuestionPage() {
     const refreshToken = localStorage.getItem("refreshToken");
 
     axios
-      .post("/question", newQuestion, {
+      .post("/questions", newQuestion, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           Refresh: `${refreshToken}`,
         },
       })
       .then((res) => {
-        window.location.href = `/question/${res.data.questionId}`;
+        window.location.href = `/questions/${res.data.questionId}`;
       })
       .catch(handleSubmitError);
   };
@@ -158,14 +159,14 @@ function AskQuestionPage() {
       localStorage.setItem("refreshToken", newRefreshToken);
 
       axios
-        .post("/question", newQuestion, {
+        .post("/questions", newQuestion, {
           headers: {
             Authorization: `Bearer ${newAccessToken}`,
             Refresh: `${newRefreshToken}`,
           },
         })
         .then((res) => {
-          window.location.href = `/question/${res.data.questionId}`;
+          window.location.href = `/questions/${res.data.questionId}`;
         })
         .catch(handleSubmitError);
     }
