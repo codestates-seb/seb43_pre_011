@@ -5,6 +5,7 @@ import { BtnBlueFill } from "../styles/common.js";
 import BREAKPOINT from "../breakpoint.js";
 import Paging from "../components/Paging.jsx";
 import Question from "../components/question.jsx";
+import { NavLink } from "react-router-dom";
 
 const StyledQuestions = styled.div`
   width: calc(100% - 32.4rem);
@@ -42,7 +43,9 @@ const AllQuestions = ({ questions }) => {
         <div className="page-header">
           <div>
             <h2>All Questions</h2>
-            <BtnBlueFill>Ask Question</BtnBlueFill>
+            <NavLink to="questions/ask" className="btn-ask">
+              <BtnBlueFill>Ask Question</BtnBlueFill>
+            </NavLink>
           </div>
           <div>
             <p className="count">{questions.length} questions</p>
