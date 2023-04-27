@@ -7,8 +7,8 @@ import { useState } from "react";
 import { ReactComponent as AskQuestionBackground } from "../assets/askquestion-background.svg";
 import TagInput from "../components/taginput.jsx";
 import { GeneralBtn } from "../components/Buttons.jsx";
-// import { Footer } from "../components/Footer.jsx";
-import { useNavigate } from "react-router-dom";
+import { Footer } from "../components/Footer.jsx";
+// import { useNavigate } from "react-router-dom";
 import Editor from "../components/editor.jsx";
 
 const Main = styled.main`
@@ -133,7 +133,7 @@ function AskQuestionPage() {
     const refreshToken = localStorage.getItem("refreshToken");
 
     axios
-      .post(process.env.REACT_APP_DB_HOST + "/question", newQuestion, {
+      .post("/question", newQuestion, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           Refresh: `${refreshToken}`,
@@ -158,7 +158,7 @@ function AskQuestionPage() {
       localStorage.setItem("refreshToken", newRefreshToken);
 
       axios
-        .post(process.env.REACT_APP_DB_HOST + "/question", newQuestion, {
+        .post("/question", newQuestion, {
           headers: {
             Authorization: `Bearer ${newAccessToken}`,
             Refresh: `${newRefreshToken}`,
@@ -343,7 +343,7 @@ function AskQuestionPage() {
           </Buttons>
         </MainBody>
       </Main>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }
