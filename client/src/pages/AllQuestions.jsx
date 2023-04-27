@@ -43,7 +43,7 @@ const AllQuestions = ({ questions }) => {
         <div className="page-header">
           <div>
             <h2>All Questions</h2>
-            <NavLink to="questions/ask" className="btn-ask">
+            <NavLink to="/questions/ask" className="btn-ask">
               <BtnBlueFill>Ask Question</BtnBlueFill>
             </NavLink>
           </div>

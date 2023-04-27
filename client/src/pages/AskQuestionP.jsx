@@ -7,7 +7,6 @@ import { useState } from "react";
 import { ReactComponent as AskQuestionBackground } from "../assets/askquestion-background.svg";
 import TagInput from "../components/taginput.jsx";
 import { GeneralBtn } from "../components/Buttons.jsx";
-import { Footer } from "../components/Footer.jsx";
 import { useNavigate } from "react-router-dom";
 import Editor from "../components/editor.jsx";
 import axios from "axios";
@@ -121,7 +120,8 @@ function AskQuestionPage() {
 
   const [formValues, setFormValues] = useState({
     title: "",
-    content: "",
+    body: "",
+    memberId: "1",
     tags: [],
   });
 
@@ -134,9 +134,9 @@ function AskQuestionPage() {
     const refreshToken = localStorage.getItem("refreshToken");
 
     axios
-      .post(process.env.REACT_APP_API_URL + "/question", newQuestion, {
+      .post(`/questions`, newQuestion, {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          authorization: `Bearer ${accessToken}`,
           Refresh: `${refreshToken}`,
         },
       })
@@ -173,7 +173,7 @@ function AskQuestionPage() {
   };
 
   const handleDiscard = () => {
-    setFormValues({ title: "", content: "", tags: [] });
+    setFormValues({ title: "", body: "", memberId: "1", tags: [] });
     navigate("/");
   };
 
@@ -344,7 +344,6 @@ function AskQuestionPage() {
           </Buttons>
         </MainBody>
       </Main>
-      <Footer />
     </>
   );
 }

@@ -46,7 +46,9 @@ function App() {
         <Header />
         <Suspense fallback={<div>Loading...</div>}>
           <div className="wrapper">
-            {pathname === "/members" || pathname === "/users/signup" ? null : (
+            {pathname === "/members" ||
+            pathname === "/users/signup" ||
+            pathname === "/users/login" ? null : (
               <Nav />
             )}
             {/* <div className="container"> */}
