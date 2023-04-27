@@ -1,5 +1,5 @@
 import axios from "axios";
-axios.defaults.baseURL = "https://3.104.104.246";
+axios.defaults.baseURL = "https://3.104.104.246:8080";
 
 export const SignUpApi = async (form) => {
   try {

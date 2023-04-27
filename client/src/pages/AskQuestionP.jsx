@@ -7,7 +7,6 @@ import { useState } from "react";
 import { ReactComponent as AskQuestionBackground } from "../assets/askquestion-background.svg";
 import TagInput from "../components/taginput.jsx";
 import { GeneralBtn } from "../components/Buttons.jsx";
-import { Footer } from "../components/Footer.jsx";
 import { useNavigate } from "react-router-dom";
 import Editor from "../components/editor.jsx";
 import axios from "axios";
@@ -121,14 +120,14 @@ function AskQuestionPage() {
 
   const [formValues, setFormValues] = useState({
     title: "",
-    content: "",
-    tags: [],
+    body: "",
+    //tags: [],
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newQuestion = { userId: 1, ...formValues };
+    const newQuestion = { memberId: 1, ...formValues };
 
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
@@ -147,7 +146,7 @@ function AskQuestionPage() {
   };
 
   const handleSubmitError = (err) => {
-    const newQuestion = { userId: 1, ...formValues };
+    const newQuestion = { memberId: 1, ...formValues };
     if (err.response.status === 401) {
       const newAccessToken = err.response.headers.authorization;
       const newRefreshToken = err.response.headers.refresh;
@@ -173,7 +172,7 @@ function AskQuestionPage() {
   };
 
   const handleDiscard = () => {
-    setFormValues({ title: "", content: "", tags: [] });
+    setFormValues({ title: "", body: "", tags: [], memberId: "" });
     navigate("/");
   };
 
@@ -344,7 +343,6 @@ function AskQuestionPage() {
           </Buttons>
         </MainBody>
       </Main>
-      <Footer />
     </>
   );
 }
