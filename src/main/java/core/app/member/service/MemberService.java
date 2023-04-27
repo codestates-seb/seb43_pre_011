@@ -4,28 +4,38 @@ import core.app.exception.BusinessLogicException;
 import core.app.exception.ExceptionCode;
 import core.app.member.entity.Member;
 import core.app.member.repository.MemberRepository;
+import core.app.security.auths.utils.CustomAuthorityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
 
-
-    @Autowired
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils) {
         this.memberRepository = memberRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.authorityUtils = authorityUtils;
     }
 
     // member 등록(닉네임의 중복을 확인해서 가입)
     public Member createMember(Member member){
 
         verifyExistsNickName(member.getNickName());
+
+        String encryptedPassword = passwordEncoder.encode((member.getPassword()));
+        member.setPassword(encryptedPassword);
+        List<String> roles = authorityUtils.createRoles(member.getEmail());
+        member.setRoles(roles);
 
         return memberRepository.save(member);
     }

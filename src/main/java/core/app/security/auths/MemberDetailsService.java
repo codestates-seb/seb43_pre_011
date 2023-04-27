@@ -17,11 +17,15 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Component
-@RequiredArgsConstructor
-@Slf4j
 public class MemberDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
     private final CustomAuthorityUtils authorityUtils;
+
+    public MemberDetailsService(MemberRepository memberRepository, CustomAuthorityUtils authorityUtils) {
+        this.memberRepository = memberRepository;
+        this.authorityUtils = authorityUtils;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Member> optionalMember = memberRepository.findByEmail(username);
@@ -32,7 +36,7 @@ public class MemberDetailsService implements UserDetailsService {
 
     private final class MemberDetails extends Member implements UserDetails {
 
-        public MemberDetails(Member member) {
+        MemberDetails(Member member) {
             setMemberId(member.getMemberId());
             setNickName(member.getNickName());
             setEmail(member.getEmail());
@@ -42,7 +46,7 @@ public class MemberDetailsService implements UserDetailsService {
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            return authorityUtils.createAuthorities(getRoles());
+            return authorityUtils.createAuthorities(this.getRoles());
         }
         @Override
         public String getUsername() {

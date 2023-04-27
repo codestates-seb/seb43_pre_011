@@ -11,8 +11,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -25,7 +28,7 @@ public class JwtTokenizer {
 
     @Getter
     @Value("${jwt.key}")
-    private String secretKey;
+    private String secretKey = generateRandomSecretKey();
 
     @Getter
     @Value("${jwt.access-token-expiration-minutes}")
@@ -64,11 +67,6 @@ public class JwtTokenizer {
                 .compact();
     }
 
-    private Key getKeyFromBase64EncodedKey(String base64EncodedSecretKey) {
-        byte[] keyBytes = Decoders.BASE64.decode(base64EncodedSecretKey);
-        Key key = Keys.hmacShaKeyFor(keyBytes);
-        return key;
-    }
 
     public Jws<Claims> getClaims(String jws, String base64EncodedSecretKey) {
         //JWT 를 파싱하여 Claim 정보를 추출
@@ -80,6 +78,7 @@ public class JwtTokenizer {
                 .parseClaimsJws(jws);
         return claims;
     }
+
     public void verifySignature(String  jws, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
         Jwts.parserBuilder()
@@ -93,5 +92,17 @@ public class JwtTokenizer {
         calendar.add(Calendar.MINUTE, expirationMinutes);
         Date expiration = calendar.getTime();
         return expiration;
+    }
+
+    private static String generateRandomSecretKey(){
+        SecureRandom random = new SecureRandom();
+        byte[] keyBytes = new byte[32];
+        random.nextBytes(keyBytes);
+        return Base64.getEncoder().encodeToString(keyBytes);
+    }
+
+    private Key getKeyFromBase64EncodedKey(String base64EncodedSecretKey) {
+        byte[] decodeKey = Base64.getDecoder().decode(base64EncodedSecretKey);
+        return new SecretKeySpec(decodeKey, "HmacSHA256");
     }
 }

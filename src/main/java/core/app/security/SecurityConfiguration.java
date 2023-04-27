@@ -11,6 +11,7 @@ import core.app.security.auths.utils.CustomAuthorityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -53,9 +54,23 @@ public class SecurityConfiguration {
                 .and()
                 .apply(new CustomFilterConfigurer())
                 .and()
-                .authorizeRequests()
+                .authorizeRequests(authorize -> authorize
+                        .antMatchers(HttpMethod.POST,"/*/members").permitAll()
+                        .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")
+                        .antMatchers(HttpMethod.POST,"/*/questions").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH, "/*/questions/**").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/*/questions/**").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/*/questions").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.DELETE, "/*/questions/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.POST,"/*/comments").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH, "/*/comments/**").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/*/comments/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.DELETE, "/*/questions/**").hasAnyRole("USER", "ADMIN")
 //                .antMatchers(HttpMethod.OPTIONS, "/**/*").permitAll() // 얘는 필요없음
-                .anyRequest().permitAll();
+                .anyRequest().permitAll());
 
         return http.build();
     }

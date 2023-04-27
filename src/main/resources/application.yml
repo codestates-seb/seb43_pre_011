@@ -4,9 +4,9 @@ spring:
       enabled: true
       path: /h2
   datasource:
-    url: jdbc:mysql://localhost:3306/PRE?useSSL=false&serverTimezone=Asia/Seoul
-    username: root
-    password: 1234
+    url: jdbc:mysql://?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username:
+    password:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database: mysql
@@ -24,6 +24,6 @@ mail:
   address:
     admin: admin@gmail.com
 jwt:
-  key: kevin123412341234123412341234
+  key: kevin12341234123412341234123412343214534252341241234123454325234523₩12
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420

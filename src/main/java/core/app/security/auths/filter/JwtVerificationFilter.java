@@ -70,8 +70,8 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 
     private Map<String,Object> verifyJws(HttpServletRequest request) {
         String jws = request.getHeader("Authorization").replace("Bearer ", ""); // 헤더에서 추출
-        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey()); // 검증 SecretKey 가지고옴
-        Map<String,Object> claims = jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody(); // 검증 키로 Claims 파싱
+        String base64BaseEncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey()); // 검증 SecretKey 가지고옴
+        Map<String,Object> claims = jwtTokenizer.getClaims(jws, base64BaseEncodedSecretKey).getBody(); // 검증 키로 Claims 파싱
 
         return claims; // 파싱 성공 == 검증 성공
     }

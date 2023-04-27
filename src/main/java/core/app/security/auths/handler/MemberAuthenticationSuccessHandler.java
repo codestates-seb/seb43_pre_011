@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * 로그인 성공시 핸들러
@@ -22,6 +23,11 @@ public class MemberAuthenticationSuccessHandler implements AuthenticationSuccess
         String clientIp = new CustomHttpServletRequestWrapper(request).getRemoteAddr();
         log.info(" # 로그인 성공" + " ID : " + member.getEmail() + " , 요청 IP : " + clientIp);
 
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter out = response.getWriter();
+        out.print("{\"result\": \"success\"}");
+        out.flush();
 //        response.setHeader("test", "login"); // 그냥 실험
     }
 }
