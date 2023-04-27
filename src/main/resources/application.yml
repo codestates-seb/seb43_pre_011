@@ -24,6 +24,6 @@ mail:
   address:
     admin: admin@gmail.com
 jwt:
-  key: kevin12341234123412341234123412343214534252341241234123454325234523₩12
+  key:
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
