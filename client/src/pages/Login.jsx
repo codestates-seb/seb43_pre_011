@@ -105,7 +105,7 @@ export const Login = () => {
       password,
     };
     const response = await LoginApi(form);
-    console.log(response);
+    console.log(`response.data ${response}`);
     if (response) {
       console.log("응답");
       navigate("/");

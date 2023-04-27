@@ -193,10 +193,10 @@ const Header = () => {
 
   // logout event
   const logoutHandler = () => {
+    setIsLogin(false); // 수정 필요
     return axios
-      .patch("/users/logout")
+      .post("/users/logout")
       .then((res) => {
-        localStorage.removeItem("userInfo");
         setIsLogin(false);
       })
       .catch((err) => {

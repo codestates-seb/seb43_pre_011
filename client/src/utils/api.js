@@ -17,7 +17,7 @@ export const SignUpApi = async (form) => {
 
 export const LoginApi = async (form) => {
   try {
-    const response = await axios.post("/auth/login", form, {
+    const response = await axios.post("/users/login", form, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -25,12 +25,13 @@ export const LoginApi = async (form) => {
     });
     console.log(response);
     console.log(`header ${response.headers.authorization}`);
-    localStorage.setItem("accessToken", response.data.Authorization);
-    localStorage.setItem("refreshToken", response.data.Refresh);
+    localStorage.setItem("accessToken", response.headers.authorization);
+    localStorage.setItem("refreshToken", response.headers.Refresh);
     localStorage.setItem("userInfo", response.data.data); // 서버 연동후 수정 필요
     axios.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${response.data.Authorization}`;
+    return response.data;
   } catch (e) {
     if (e.response?.status === 401) {
       alert("비밀번호가 일치하지 않습니다.");
