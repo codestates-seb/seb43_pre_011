@@ -112,7 +112,7 @@ export const SignUp = () => {
       setPreventSubmit(true);
       console.log(`preventSubmit ${preventSubmit}`);
     }
-  }, [emailError, passwordError]);
+  }, [emailError, passwordError, preventSubmit]);
 
   // 제출 버튼 클릭시 이벤트
   const handleSubmit = async (e) => {
