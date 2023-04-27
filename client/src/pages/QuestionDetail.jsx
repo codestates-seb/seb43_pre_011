@@ -94,7 +94,7 @@ const QuestionDetail = () => {
         </div>
         <div className="content-wrap">
           <div className="mainbar">
-            <DetailBody data={question} type="question" />
+            <DetailBody data={question} type="questions" />
             <div className="answer">
               <h3>1 Answer</h3>
               <DetailBody data={question} type="comment" />

@@ -7,7 +7,7 @@ import { useState } from "react";
 import { ReactComponent as AskQuestionBackground } from "../assets/askquestion-background.svg";
 import TagInput from "../components/taginput.jsx";
 import { GeneralBtn } from "../components/Buttons.jsx";
-import { Footer } from "../components/Footer.jsx";
+// import { Footer } from "../components/Footer.jsx";
 import { useNavigate } from "react-router-dom";
 import Editor from "../components/editor.jsx";
 
@@ -343,7 +343,7 @@ function AskQuestionPage() {
           </Buttons>
         </MainBody>
       </Main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

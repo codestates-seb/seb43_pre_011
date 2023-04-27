@@ -100,15 +100,17 @@ export const Login = () => {
     e.preventDefault();
     setIsSubmitted(true); // 에러 메시지 활성화를 위한 상태변경
 
-    if (preventSubmit) return;
     const form = {
-      email,
+      username: email,
       password,
     };
     const response = await LoginApi(form);
+    console.log(response);
     if (response) {
-      navigate("/questions?page=1&size=1");
+      console.log("응답");
+      navigate("/");
     }
+    if (preventSubmit) return;
   };
 
   return (
@@ -183,7 +185,7 @@ export const Login = () => {
                 ) : null}
               </div>
             </div>
-            <Button onClick={handleSubmit}> Sign up</Button>
+            <Button onClick={handleSubmit}>Log in</Button>
           </Input>
         </form>
         <div className="text">
