@@ -37,3 +37,12 @@ export const LoginApi = async (form) => {
     }
   }
 };
+
+export const DeleteApi = (type, id) => {
+  try {
+    axios.delete(`/${type}/${id}`);
+    console.log("삭제요청 성공");
+  } catch (e) {
+    console.log(e);
+  }
+};

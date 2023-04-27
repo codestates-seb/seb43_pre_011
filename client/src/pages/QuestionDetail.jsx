@@ -3,6 +3,8 @@ import Sidebar from "../components/Sidebar.jsx";
 import { BtnBlueFill } from "../styles/common.js";
 import BREAKPOINT from "../breakpoint.js";
 import DetailBody from "../components/DetailBody.jsx";
+import Editor from "../components/editor.jsx";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const StyledQuestion = styled.div`
   width: 100%;
@@ -60,43 +62,54 @@ const StyledQuestion = styled.div`
     }
   }
 `;
-const ReadQuestion = () => {
+const QuestionDetail = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const question = location.state;
+  const getLocalDate = (date) => {
+    return new Date(date).toLocaleDateString();
+  };
+
   return (
-    <StyledQuestion>
-      <div className="title">
-        <div>
-          <h2>Writing a simple bash script encounters string problems</h2>
-          <BtnBlueFill>Ask Question</BtnBlueFill>
-        </div>
-        <div className="info">
-          <p>
-            Asked <span>today</span>
-          </p>
-          <p>
-            Modified <span>today</span>
-          </p>
-          <p>
+    <div className="container">
+      <StyledQuestion>
+        <div className="title">
+          <div>
+            <h2>{question.title}</h2>
+            <BtnBlueFill onClick={() => navigate("/questions/ask")}>
+              Ask Question
+            </BtnBlueFill>
+          </div>
+          <div className="info">
+            <p>
+              Asked <span>{getLocalDate(question.createAt)}</span>
+            </p>
+            <p>
+              Modified <span>{getLocalDate(question.modifiedAt)}</span>
+            </p>
+            {/* <p>
             Viewed <span>13 times</span>
-          </p>
-        </div>
-      </div>
-      <div className="content-wrap">
-        <div className="mainbar">
-          <DetailBody />
-          <div className="answer">
-            <h3>1 Answer</h3>
-            <DetailBody />
-            <form>
-              <h3>Your Answer</h3>
-              <div>에디터</div>
-              <BtnBlueFill>Post Your Answer</BtnBlueFill>
-            </form>
+          </p> */}
           </div>
         </div>
-        <Sidebar />
-      </div>
-    </StyledQuestion>
+        <div className="content-wrap">
+          <div className="mainbar">
+            <DetailBody data={question} type="question" />
+            <div className="answer">
+              <h3>1 Answer</h3>
+              <DetailBody data={question} type="comment" />
+              <form>
+                <h3>Your Answer</h3>
+                <Editor />
+                <BtnBlueFill>Post Your Answer</BtnBlueFill>
+              </form>
+            </div>
+          </div>
+          <Sidebar />
+        </div>
+      </StyledQuestion>
+    </div>
   );
 };
 
-export default ReadQuestion;
+export default QuestionDetail;

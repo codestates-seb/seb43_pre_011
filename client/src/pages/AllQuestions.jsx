@@ -4,7 +4,7 @@ import Filter from "../components/Filter.jsx";
 import { BtnBlueFill } from "../styles/common.js";
 import BREAKPOINT from "../breakpoint.js";
 import Paging from "../components/Paging.jsx";
-import Question from "../components/question.jsx";
+import Question from "../components/Question.jsx";
 
 const StyledQuestions = styled.div`
   width: calc(100% - 32.4rem);
@@ -35,9 +35,9 @@ const StyledQuestions = styled.div`
     }
   }
 `;
-const AllQuestions = () => {
+const AllQuestions = ({ questions }) => {
   return (
-    <>
+    <div className="container">
       <StyledQuestions>
         <div className="page-header">
           <div>
@@ -45,17 +45,19 @@ const AllQuestions = () => {
             <BtnBlueFill>Ask Question</BtnBlueFill>
           </div>
           <div>
-            <p className="count">2,151,619 questions</p>
+            <p className="count">{questions.length} questions</p>
             <Filter />
           </div>
         </div>
         <ul className="questions-list">
-          <Question />
+          {questions.map((question) => (
+            <Question key={question.questionId} question={question} />
+          ))}
         </ul>
         <Paging />
       </StyledQuestions>
       <Sidebar />
-    </>
+    </div>
   );
 };
 
