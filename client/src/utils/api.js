@@ -1,5 +1,5 @@
 import axios from "axios";
-axios.defaults.baseURL = "https://4256dbf9a9eb.ngrok.app";
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 export const SignUpApi = async (form) => {
   try {

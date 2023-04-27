@@ -133,7 +133,7 @@ function AskQuestionPage() {
     const refreshToken = localStorage.getItem("refreshToken");
 
     axios
-      .post(process.env.REACT_APP_DB_HOST + "/question", newQuestion, {
+      .post(process.env.REACT_APP_API_URL + "/question", newQuestion, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           Refresh: `${refreshToken}`,
